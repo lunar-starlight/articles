@@ -1,0 +1,172 @@
+\section{Heyting-valued Sets}
+
+\def\h{\mathcal{H}}
+
+\subsection{Preliminaries}
+
+\begin{definition}
+  A \emph{Heyting-valued set \(A\)} is a carrier set \(\abs A\) equipped with a
+  ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
+  \begin{gather}
+    \label{hvs:symm}  \eq x y ≤ \eq y x\\
+    \label{hvs:trans} \eq x y ∧ \eq y z ≤ \eq x z
+  \end{gather}
+
+  Define \(\e x ≔ \eq x x\).
+\end{definition}
+
+\begin{definition}
+  A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued,b
+  functional relation'', meaning it is a map \(\abs f : \abs A × \abs B → \h\)
+  satisfying
+  \begin{gather}
+    \label{hvm:str}    f(x,y) ≤ \e x ∧ \e y\\
+    \label{hvm:well}   \eq {x'} x ∧ f(x, y) ∧ \eq y {y'} ≤ f(x', y')\\
+    \label{hvm:unique} f(x, y) ∧ f(x, y') ≤ \eq y {y'}\\
+    \label{hvm:total}  \e x ≤ ⋁_{y ∈ B}f(x, y)
+  \end{gather}
+\end{definition}
+
+\begin{fact}
+  The following hold.
+  \begin{enumerate}
+  \item \(f(x,y)∧\eq x {x'} = f(x',y)∧\eq x {x'}\)
+  \item \(\e x = ⋁_{y∈A}\eq x y\)
+  \end{enumerate}
+\end{fact}
+
+
+\begin{construction}
+  The product \(A×B\) is given by \(\abs A × \abs B\) with equality
+  \[ \eq{\p{x,y}}{\p{x',y'}} ≔ \eq x {x'} ∧ \eq y {y'}\text. \]
+
+  The projection \(π : A×B ↬ A\) is defined by
+  \[ \p{\p{x,y}, x'} ↦ \eq x {x'} ∧ \e y\text. \]
+  The other projection is defined similarly
+\end{construction}
+\begin{proof}
+  Symmetry and transitivity of the equality follow clearly.
+
+  Likewise, the projection is clearly strict and well-defined.
+  Uniqueness holds via
+  \begin{align*}
+    π(\p{x,y},x') ∧ π(\p{x,y},x'')
+    &= \eq x {x'} ∧ \e y ∧ \eq x {x''} ∧ \e y\\
+    &= \eq x {x'} ∧ \eq x {x''} ∧ \e y\\
+    &≤ \eq {x'} {x''} ∧ \e y\\
+    &≤ \eq {x'} {x''}\text.
+  \end{align*}
+  Totality holds via
+  \begin{align*}
+    \e{\p{x,y}} = \e x ∧ \e y = ⋁_{x'∈A}\eq x {x'} ∧ \e y\text.
+  \end{align*}
+\end{proof}
+
+In the following, I will not write out these proofs. A standard reference is
+TODO BorceuxV3.
+
+\begin{construction}
+  The \emph{discrete Heyting-valued set \(ΔA\) on \(A\)} has \(A\) as it's
+  carrier and equality defined by \(\p{x,y} ↦ ⋁\set{⊤}{x=y}\).
+\end{construction}
+
+\begin{fact}
+  The empty type \(∅\) is given by the empty carrier.
+
+  The unit type \(\mb 1\) is given by \(\{\ast\}\) with \(\e\ast = ⊤\). This is
+  the discrete Heyting-valued set on \(\{\ast\}\).
+
+  The natural numbers object is the discrete Heyting-valued set on \(ℕ\).
+
+  The rational numbers object is the discrete Heyting-valued set on \(ℚ\).
+\end{fact}
+\begin{note}
+  The real numbers object is not necessarily discrete.
+\end{note}
+
+\begin{construction}
+  The sum \(A+B\) is given by \(\abs A+\abs B\) with equality defined by
+  \begin{align*}
+    &\eq {\inl x} {\inl x'} ≔ \eq[A] x {x'}\\
+    &\eq {\inl x} {\inr y'} ≔ ⊥\\
+    &\eq {\inr y} {\inr x'} ≔ ⊥\\
+    &\eq {\inr y} {\inr y'} ≔ \eq[B] y {y'}
+  \end{align*}
+
+  The inclusion \(ι : A ↬ A+B\) is given by \(\p{x,t} ↦ \eq {\inl x} t\).
+  The other inclusion is defined similarly.
+\end{construction}
+
+\begin{construction}
+  The subobject classifier \(Ω\) is given by \(\h\) with \(∧\) as equality.
+\end{construction}
+
+\begin{construction}
+  The exponent \(B^A\) is given by
+  \[ \set{f : \abs A × \abs B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
+  with equality
+  \[ \p{f,g} ↦ ⋀_{x∈A}⋁_{y∈B}f(x,y) ∧ g(x,y)\text. \]
+\end{construction}
+
+\begin{fact}
+  The powerobject \(𝒫A = Ω^A\) can be given as the discrete Heyting-valued set
+  on \(\set{P : \abs A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
+\end{fact}
+
+\begin{construction}
+  The restriction \(A\res p\) is given by \(\set{x ∈ A}{\e x \between p}\)
+\end{construction}
+
+
+\subsection{CwF structure}
+
+To define what is a family we first define a ``universe''.
+
+\begin{construction}
+  Up to size issues the class of all Heyting-valued sets \(\hvsets\) with
+  equality \(\p{A,B} ↦ ⋁\set{p∈\h}{A\res p = B\res p}\) is a Heyting-valued set.
+\end{construction}
+
+\begin{construction}
+  Given a family 
+\end{construction}
+
+\begin{theorem}
+  Morphisms \(f : A ↬ 𝒰\) correspond precisely to maps \(\hat f : A → 𝒰\)
+  satisfying \(f(x)\res{\eq x {x'}} = f(x')\res{\eq x {x'}}\).
+\end{theorem}
+\begin{proof}
+  Take \(a ∈ A\). The carrier of \(\hat f(a)\) is the set
+  \(\set{x ∈ x}{x ∈ 𝒰 ∧ \e x \between f(a,x)}\) with equality
+  \(\p{x,y} ↦ ⋁_{X∋x,\\Y∋y}f(a, X) ∧ f(a, Y) ∧ \eq[X\res{\eq X Y}] x y\).
+
+  Take another \(a' ∈ A\). The restriction \(f(a)\res{\eq a {a'}}\) has as
+  carrier
+  \[ \set{x ∈ X}{X ∈ 𝒰 ∧ \e x \between f(a,X) ∧ \e x \between \eq a {a'}}\text. \]
+  We can see that any element in this carrier will also satisfy
+  \(\e x \between f(a',X)\)
+  
+  
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
