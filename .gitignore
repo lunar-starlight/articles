@@ -1,0 +1,5 @@
+.build
+auto
+.#*
+*.synctex.gz
+*.pdf
