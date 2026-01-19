@@ -29,6 +29,7 @@
 
 \begin{fact}
   The following hold.
+  
   \begin{enumerate}
   \item \(f(x,y)∧\eq x {x'} = f(x',y)∧\eq x {x'}\)
   \item \(\e x = ⋁_{y∈A}\eq x y\)
@@ -128,25 +129,54 @@ To define what is a family we first define a ``universe''.
 \end{construction}
 
 \begin{construction}
-  Given a family 
+  Given a  family \(\p{Bₐ}_{a∈A}\) of Heyting-valued sets, such that
+  \(Bₐ\res{\eq a {a'}} = B_{a'}\res{\eq a {a'}}\), the gluing \(⋁B\) has carrier
+  \[ \set{b ∈ Bₐ\res{\e a}}{a ∈ A} = ⋃_{a ∈ A}Bₐ\res{\e a} \] and equality
+  %\[ \p{b, b'} ↦ ⋁_{a,a' ∈ A} b ∈ Bₐ\res {\eq a {a'}} ∧ b' ∈ B_{a'}\res{\eq a {a'}}
+  %  ∧ \eq a {a'} ∧ \eq[Bₐ\res {\eq a {a'}}] b {b'}\text. \]
+  \[ \p{b, b'} ↦ ⋁_{a ∈ A} b,b' ∈ Bₐ\res {\e a} ∧ \eq[Bₐ\res {\e a}] b {b'}\text. \]
 \end{construction}
+\begin{proof}
+  Let \(b₀, b₁, b₂ ∈ ⋁B\). Then by construction \(bᵢ ∈ B_{aᵢ}\res{\e {aᵢ}}\) for
+  some \(aᵢ ∈ A\).
+  \begin{align*}
+    \eq {b₀} {b₁}
+    = ⋁_{a ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}\\
+    ≤ ⋁_{a ∈ A} b₁,b₀ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₁} {b₀}\\
+    &= \eq {b₁} {b₀}
+  \end{align*}
+  \begin{align*}
+    \eq {b₀} {b₁} ∧ \eq {b₁} {b₂}
+    = ⋁_{a,a' ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}
+    ∧ b₁,b₂ ∈ B_{a'}\res {\e {a'}} ∧ \e {a'} ∧ \eq[B_{a'}\res {\e {a'}}] {b₁} {b₂}\\
+    &= ⋁_{a ∈ A} b₀,b₁,b₂ ∈ Bₐ\res {\e a} ∧ \e a
+    ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁} ∧ \eq[Bₐ\res {\e a}] {b₁} {b₂}\\
+    &≤ ⋁_{a ∈ A} b₀,b₂ ∈ Bₐ\res {\e a} ∧ \e a
+    ∧ \eq[Bₐ\res {\e a}] {b₀} {b₂}\\
+    &= \eq {b₀} {b₂}
+  \end{align*}
+\end{proof}
 
 \begin{theorem}
   Morphisms \(f : A ↬ 𝒰\) correspond precisely to maps \(\hat f : A → 𝒰\)
-  satisfying \(f(x)\res{\eq x {x'}} = f(x')\res{\eq x {x'}}\).
+  satisfying \(\hat f(x)\res{\eq x {x'}} = \hat f(x')\res{\eq x {x'}}\).
 \end{theorem}
 \begin{proof}
   Take \(a ∈ A\). The carrier of \(\hat f(a)\) is the set
-  \(\set{x ∈ x}{x ∈ 𝒰 ∧ \e x \between f(a,x)}\) with equality
+  \(\set{x ∈ X}{X ∈ 𝒰 ∧ \e x \between f(a, X)}\) with equality
   \(\p{x,y} ↦ ⋁_{X∋x,\\Y∋y}f(a, X) ∧ f(a, Y) ∧ \eq[X\res{\eq X Y}] x y\).
 
-  Take another \(a' ∈ A\). The restriction \(f(a)\res{\eq a {a'}}\) has as
+  Take another \(a' ∈ A\). The restriction \(\hat f(a)\res{\eq a {a'}}\) has as
   carrier
-  \[ \set{x ∈ X}{X ∈ 𝒰 ∧ \e x \between f(a,X) ∧ \e x \between \eq a {a'}}\text. \]
-  We can see that any element in this carrier will also satisfy
-  \(\e x \between f(a',X)\)
-  
-  
+  \[ \set{x ∈ X}{X ∈ 𝒰 ∧ \e x ∧ f(a,x) \between \eq a {a'}}\text. \]
+  The condition \(\e x ∧ f(a, X) \between \eq a {a'}\) is equivalent to
+  \[ ⊥ < \e x ∧ f(a, X) ∧ \eq a {a'} \text, \]
+  so it is also equivalent to \(\e x ∧ f(a', X) \between \eq a {a'}\).
+
+  Thus, \(\hat f(a)\res{\eq a {a'}} = \hat f(a')\res{\eq a {a'}}\).
+
+  In the other direction taking a map \(\hat f : A → 𝒰\) we define
+  \(f(a, X) ≔ \e a ∧ \eq X {\hat f(a)}\).
 \end{proof}
 
 
