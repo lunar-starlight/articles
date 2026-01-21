@@ -127,7 +127,7 @@ To define what is a family we first define a ``universe''.
   Up to size issues the class of all Heyting-valued sets \(\hvsets\) with
   equality \(\p{A,B} ↦ ⋁\set{p∈\h}{A\res p = B\res p}\) is a Heyting-valued set.
 \end{construction}
-
+ 
 \begin{construction}
   Given a  family \(\p{Bₐ}_{a∈A}\) of Heyting-valued sets, such that
   \(Bₐ\res{\eq a {a'}} = B_{a'}\res{\eq a {a'}}\), the gluing \(⋁B\) has carrier
@@ -136,6 +136,7 @@ To define what is a family we first define a ``universe''.
   %  ∧ \eq a {a'} ∧ \eq[Bₐ\res {\eq a {a'}}] b {b'}\text. \]
   \[ \p{b, b'} ↦ ⋁_{a ∈ A} b,b' ∈ Bₐ\res {\e a} ∧ \eq[Bₐ\res {\e a}] b {b'}\text. \]
 \end{construction}
+TODO: check if the \(b ∈ B\) should be in the index of the disjunciton. 
 \begin{proof}
   Let \(b₀, b₁, b₂ ∈ ⋁B\). Then by construction \(bᵢ ∈ B_{aᵢ}\res{\e {aᵢ}}\) for
   some \(aᵢ ∈ A\).
@@ -162,7 +163,8 @@ To define what is a family we first define a ``universe''.
   satisfying \(\hat f(x)\res{\eq x {x'}} = \hat f(x')\res{\eq x {x'}}\).
 \end{theorem}
 \begin{proof}
-  Take \(a ∈ A\). The carrier of \(\hat f(a)\) is the set
+  Take \(a ∈ A\). The type \(\hat f(a)\) is the gluing of the family
+  \(\p{X\res{f(a,X)}}_{X ∈ 𝒰}\), that is the set
   \(\set{x ∈ X}{X ∈ 𝒰 ∧ \e x \between f(a, X)}\) with equality
   \(\p{x,y} ↦ ⋁_{X∋x,\\Y∋y}f(a, X) ∧ f(a, Y) ∧ \eq[X\res{\eq X Y}] x y\).
 
@@ -175,8 +177,36 @@ To define what is a family we first define a ``universe''.
 
   Thus, \(\hat f(a)\res{\eq a {a'}} = \hat f(a')\res{\eq a {a'}}\).
 
-  In the other direction taking a map \(\hat f : A → 𝒰\) we define
-  \(f(a, X) ≔ \e a ∧ \eq X {\hat f(a)}\).
+  In the other direction taking a map \(g : A → 𝒰\) we define
+  \(g^\flat(a, X) ≔ \e a ∧ \eq X {g(a)}\). This is obviously a morphism
+  \(g^\flat : A ↬ 𝒰\).
+
+  If \(f = g : A ↬ 𝒰\), then for \(a ∈ A\) we have
+  \[ \hat f(a) = ⋁\p{X\res{f(a, X)}} = ⋁\p{X\res{g(a, X)}} = \hat g(a)\text. \]
+
+  Let \(a ∈ A\) and \(g : A → 𝒰\).
+  \begin{align*}
+    \hat{g^\flat}(a)
+    ≔ ⋁\p{X\res{g^\flat(a, X)}}
+    = ⋁\p{X\res{\e a ∧ \eq X {g(a)}}
+    = ⋁\p{X\res{\eq X {g(a)}}\res{\e a}
+    = ⋁\p{g(a)}\res{\e a}
+    = g(a)
+  \end{align*}
+
+  It remains to show that \(\hat f^\flat = f\). For \(a ∈ A\) and \(X ∈ 𝒰\) we
+  have
+  \begin{align*}
+    \hat f^\flat(a, X) = \e a ∧ \eq X {\hat f(a)}
+    = \e a ∧ ⋁_{Y ∈ 𝒰} \eq X {Y\res{f(a, Y)}}
+    = \e a ∧ ⋁_{Y ∈ 𝒰} \eq X Y ∧ f(a, Y)
+    = \e a ∧ f(a, X)
+    = f(a, X)
+  \end{align*}
+
+  In the other direction assuming \(\hat f = \hat g : A → 𝒰\) we have at
+  \(a ∈ A\) and \(X ∈ 𝒰\)
+  \[ f(a, X) = \e a ∧ \eq X {\hat f(a)} \]
 \end{proof}
 
 
