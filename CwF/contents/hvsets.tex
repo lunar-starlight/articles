@@ -86,7 +86,7 @@ TODO BorceuxV3.
 \end{note}
 
 \begin{construction}
-  The sum \(A+B\) is given by \(\abs A+\abs B\) with equality defined by
+  The sum \(A+B\) is given by \(\abs A+\abs B\) with equality
   \begin{align*}
     &\eq {\inl x} {\inl x'} ≔ \eq[A] x {x'}\\
     &\eq {\inl x} {\inr y'} ≔ ⊥\\
@@ -104,7 +104,7 @@ TODO BorceuxV3.
 
 \begin{construction}
   The exponent \(B^A\) is given by
-  \[ \set{f : \abs A × \abs B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
+  \[ \set{f : \abs A × \abs B → ℋ}{\ref{hvm:str}-\ref{hvm:unique}} \]
   with equality
   \[ \p{f,g} ↦ ⋀_{x∈A}⋁_{y∈B}f(x,y) ∧ g(x,y)\text. \]
 \end{construction}
@@ -124,7 +124,7 @@ TODO BorceuxV3.
 To define what is a family we first define a ``universe''.
 
 \begin{construction}
-  Up to size issues the class of all Heyting-valued sets \(\hvsets\) with
+  Up to size issues, the class of all Heyting-valued sets \(\hvsets\) with
   equality \(\p{A,B} ↦ ⋁\set{p∈\h}{A\res p = B\res p}\) is a Heyting-valued set.
 \end{construction}
  
@@ -136,77 +136,83 @@ To define what is a family we first define a ``universe''.
   %  ∧ \eq a {a'} ∧ \eq[Bₐ\res {\eq a {a'}}] b {b'}\text. \]
   \[ \p{b, b'} ↦ ⋁_{a ∈ A} b,b' ∈ Bₐ\res {\e a} ∧ \eq[Bₐ\res {\e a}] b {b'}\text. \]
 \end{construction}
-TODO: check if the \(b ∈ B\) should be in the index of the disjunciton. 
+TODO: check if the \(b ∈ B\) should be in the index of the disjunciton.
 \begin{proof}
   Let \(b₀, b₁, b₂ ∈ ⋁B\). Then by construction \(bᵢ ∈ B_{aᵢ}\res{\e {aᵢ}}\) for
   some \(aᵢ ∈ A\).
   \begin{align*}
     \eq {b₀} {b₁}
-    = ⋁_{a ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}\\
-    ≤ ⋁_{a ∈ A} b₁,b₀ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₁} {b₀}\\
+    &= ⋁_{a ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}\\
+    &≤ ⋁_{a ∈ A} b₁,b₀ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₁} {b₀}\\
     &= \eq {b₁} {b₀}
   \end{align*}
   \begin{align*}
     \eq {b₀} {b₁} ∧ \eq {b₁} {b₂}
-    = ⋁_{a,a' ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}
+    &= ⋁_{a,a' ∈ A} b₀,b₁ ∈ Bₐ\res {\e a} ∧ \e a ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁}
     ∧ b₁,b₂ ∈ B_{a'}\res {\e {a'}} ∧ \e {a'} ∧ \eq[B_{a'}\res {\e {a'}}] {b₁} {b₂}\\
     &= ⋁_{a ∈ A} b₀,b₁,b₂ ∈ Bₐ\res {\e a} ∧ \e a
     ∧ \eq[Bₐ\res {\e a}] {b₀} {b₁} ∧ \eq[Bₐ\res {\e a}] {b₁} {b₂}\\
     &≤ ⋁_{a ∈ A} b₀,b₂ ∈ Bₐ\res {\e a} ∧ \e a
     ∧ \eq[Bₐ\res {\e a}] {b₀} {b₂}\\
-    &= \eq {b₀} {b₂}
+    &= \eq {b₀} {b₂}\\
   \end{align*}
 \end{proof}
 
 \begin{theorem}
-  Morphisms \(f : A ↬ 𝒰\) correspond precisely to maps \(\hat f : A → 𝒰\)
-  satisfying \(\hat f(x)\res{\eq x {x'}} = \hat f(x')\res{\eq x {x'}}\).
+  Morphisms \(f : A ↬ 𝒰\) correspond precisely to maps \(φ : A → 𝒰\)
+  satisfying \(φ(x)\res{\eq x {x'}} = φ(x')\res{\eq x {x'}}\).
 \end{theorem}
 \begin{proof}
-  Take \(a ∈ A\). The type \(\hat f(a)\) is the gluing of the family
-  \(\p{X\res{f(a,X)}}_{X ∈ 𝒰}\), that is the set
+  Take \(a ∈ A\). The type \(φ(a)\) is the gluing of the family
+  \(\p{X\res{f(a,X)}}_{\mkern-6muX ∈ 𝒰}\), that is the set
   \(\set{x ∈ X}{X ∈ 𝒰 ∧ \e x \between f(a, X)}\) with equality
-  \(\p{x,y} ↦ ⋁_{X∋x,\\Y∋y}f(a, X) ∧ f(a, Y) ∧ \eq[X\res{\eq X Y}] x y\).
+  \[ \p{x,y} ↦ ⋁_{X∋x,\\Y∋y}f(a, X) ∧ f(a, Y) ∧ \eq[X\res{\eq X Y}] x y\text. \]
 
-  Take another \(a' ∈ A\). The restriction \(\hat f(a)\res{\eq a {a'}}\) has as
+  This gluing is small since the collection \(I ≔ \{X\res{f(a,X)} ∈ \hvsets\}\) is a
+  set.
+  
+  If \(f(a,X\res{f(a,X)}) = f(a,Y\res{f(a,Y)})\) then
+  \(\eq[𝒰] {X\res{f(a,X)}} {Y\res{f(a,Y)}}\).
+  Therefore the collection \(I\) has at most \(ℋ\) many elements.
+
+  Take another \(a' ∈ A\). The restriction \(φ(a)\res{\eq a {a'}}\) has as
   carrier
   \[ \set{x ∈ X}{X ∈ 𝒰 ∧ \e x ∧ f(a,x) \between \eq a {a'}}\text. \]
   The condition \(\e x ∧ f(a, X) \between \eq a {a'}\) is equivalent to
   \[ ⊥ < \e x ∧ f(a, X) ∧ \eq a {a'} \text, \]
   so it is also equivalent to \(\e x ∧ f(a', X) \between \eq a {a'}\).
 
-  Thus, \(\hat f(a)\res{\eq a {a'}} = \hat f(a')\res{\eq a {a'}}\).
+  Thus, \(φ(a)\res{\eq a {a'}} = φ(a')\res{\eq a {a'}}\).
 
-  In the other direction taking a map \(g : A → 𝒰\) we define
-  \(g^\flat(a, X) ≔ \e a ∧ \eq X {g(a)}\). This is obviously a morphism
-  \(g^\flat : A ↬ 𝒰\).
+  In the other direction taking a map \(φ : A → 𝒰\) we define
+  \(f(a, X) ≔ \e a ∧ \eq X {φ(a)}\). This is obviously a morphism
+  \(f : A ↬ 𝒰\).
 
   If \(f = g : A ↬ 𝒰\), then for \(a ∈ A\) we have
-  \[ \hat f(a) = ⋁\p{X\res{f(a, X)}} = ⋁\p{X\res{g(a, X)}} = \hat g(a)\text. \]
+  \[ φ(a) = ⋁\p{X\res{f(a, X)}} = ⋁\p{X\res{g(a, X)}} = γ(a)\text. \]
 
-  Let \(a ∈ A\) and \(g : A → 𝒰\).
+  Let \(a ∈ A\), \(φ : A → 𝒰\), and \(f\) the corresponding morphism. Let \(γ\)
+  denote the corresponding map to \(f\).
   \begin{align*}
-    \hat{g^\flat}(a)
-    ≔ ⋁\p{X\res{g^\flat(a, X)}}
-    = ⋁\p{X\res{\e a ∧ \eq X {g(a)}}
-    = ⋁\p{X\res{\eq X {g(a)}}\res{\e a}
-    = ⋁\p{g(a)}\res{\e a}
-    = g(a)
+    γ(a)
+    &≔ ⋁\p{X\res{f(a, X)}}\\
+    &= ⋁\p{X\res{\e a ∧ \eq X {φ(a)}}}\\
+    &= ⋁\p{X\res{\eq X {φ(a)}}}\res{\e a}\\
+    &= ⋁\p{φ(a)}\res{\e a}\\
+    &= φ(a)
   \end{align*}
 
-  It remains to show that \(\hat f^\flat = f\). For \(a ∈ A\) and \(X ∈ 𝒰\) we
-  have
+  Let now \(f : A ↬ 𝒰\), \(φ\) the corresponding map to \(f\), and \(g\) be the
+  corresponding morphism to \(γ\). It remains to show that \(g = f\). For
+  \(a ∈ A\) and \(X ∈ 𝒰\) we have
   \begin{align*}
-    \hat f^\flat(a, X) = \e a ∧ \eq X {\hat f(a)}
-    = \e a ∧ ⋁_{Y ∈ 𝒰} \eq X {Y\res{f(a, Y)}}
-    = \e a ∧ ⋁_{Y ∈ 𝒰} \eq X Y ∧ f(a, Y)
-    = \e a ∧ f(a, X)
-    = f(a, X)
+    g(a, X)
+    &= \e a ∧ \eq X {φ(a)}\\
+    &= \e a ∧ ⋁_{Y ∈ 𝒰} \eq X {Y\res{f(a, Y)}}\\
+    &= \e a ∧ ⋁_{Y ∈ 𝒰} \eq X Y ∧ f(a, Y)\\
+    &= \e a ∧ f(a, X)\\
+    &= f(a, X)
   \end{align*}
-
-  In the other direction assuming \(\hat f = \hat g : A → 𝒰\) we have at
-  \(a ∈ A\) and \(X ∈ 𝒰\)
-  \[ f(a, X) = \e a ∧ \eq X {\hat f(a)} \]
 \end{proof}
 
 

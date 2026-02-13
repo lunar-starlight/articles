@@ -1,5 +1,58 @@
 \section{Introduction}
 
+When trying to find models where some chosen non-constructive principles hold or
+fail we find that translating the statements using Kripke-Joyal semantics to
+produce very long formulae.
+
+For example, consider the schema of instance reduction \cite{Bau22}
+\[ \for{x:A}{\exist{y:B}{ψ(y) ⇒ φ(x)}}\text. \]
+This translates to, in the Kripke-Joyal semantics, into
+\[ \for{I ∈ 𝒞, x ∈ A(I)}{\exist{C\text{ covering}}
+    {\for{(j : J → I) ∈ C}{\exist{y ∈ B(J)}{J ⊩ ψ(y) ⇒ φ(x\res j)}}}}\text. \label{eq:inst-red-kj}\]
+
+Furthermore, this is not any simpler for even the simplest of Grothendieck
+toposes \(\sh(X)\).
+However, there is an alternative to Kripke-Joyal semantics in topological (and
+in general localic) toposes. We can simply evaluate the expressions. We define
+the interpretation \(\i φ\) as \(⋁_{U ∈ ℋ}U ⊩ φ\) aka the largest open, where
+\(φ\) holds. If we then rephrase the Kripke-Joyal semantics in terms of
+interpretation, we get the following table
+TODO: TABLE
+
+Then instance reduction translates to
+\[
+  ⋀_{\substack{U ∈ ℋ\\x ∈ A(U)}}⋁_{\substack{V ⊆ U\\y ∈ B(V)}}
+  \i{ψ(y)} ⇒ \i{φ(x)}\text.\label{eq:inst-red-int}
+\]
+
+This looks much closer to the original, but now we need to reason in the order
+structure of \(ℋ\) instead of the meta-logic, like we normally do.
+
+TODO: relate to something idk
+
+There is a lot of bookkeeping of stages in~\ref{eq:inst-red-int}. There exists a
+presentation of sheaves that avoids the stratification, where we just have a set
+of elements equipped with a map into \(ℋ\), encoding the strata. However, we can
+do even better. After all, sheaves are closed under restrictions and gluing, so
+wouldn't it be better, if we could ignore those and just work with the
+"generators", like we do in group theory?
+
+It turns out the answer to the above is hidden in the work of Michael Fourman
+and Dana Scott~\cite{FS79} in the form of what they call \(Ω\)-sets, and what we will
+call \emph{Heyting-valued sets}. These encode the representability structure of
+sheaves, by giving a set of generators together with a Heyting-valued relation
+on pairs of generators, measuring their "degree of equality".
+This framework gives us much nicer objects to work with, especially for
+colimits. For example, the sum of two sheaves is somewhat complicated. We first
+take the simple sum of presheaves, but then we need to add all of the glued
+elements. This makes verifying formulae like~\ref{eq:inst-red-kj} for these
+elements unnecessarily cumbersome. After all, the sum is \emph{generated} by
+elements of it's components. In Heyting-valued sets, the sum is constructed
+simply by taking the sum of the underlying sets, with equality defined in the
+obvious way. This means that all elements of \(A + B\) are of the form either
+\(\inl a\) or \(\inr b\), which we can then reduce to computation purely in
+either \(A\) or \(B\).
+
 
 %%% Local Variables:
 %%% mode: latex
