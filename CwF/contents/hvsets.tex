@@ -5,7 +5,7 @@
 \subsection{Preliminaries}
 
 \begin{definition}
-  A \emph{Heyting-valued set \(A\)} is a carrier set \(\abs A\) equipped with a
+  A \emph{Heyting-valued set \(A\)} is a carrier set \(\carr A\) equipped with a
   ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
   \begin{gather}
     \label{hvs:symm}  \eq x y ≤ \eq y x\\
@@ -17,7 +17,7 @@
 
 \begin{definition}
   A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued,b
-  functional relation'', meaning it is a map \(\abs f : \abs A × \abs B → \h\)
+  functional relation'', meaning it is a map \(\carr f : \carr A × \carr B → \h\)
   satisfying
   \begin{gather}
     \label{hvm:str}    f(x,y) ≤ \e x ∧ \e y\\
@@ -36,9 +36,8 @@
   \end{enumerate}
 \end{fact}
 
-
 \begin{construction}
-  The product \(A×B\) is given by \(\abs A × \abs B\) with equality
+  The product \(A×B\) is given by \(\carr A × \carr B\) with equality
   \[ \eq{\p{x,y}}{\p{x',y'}} ≔ \eq x {x'} ∧ \eq y {y'}\text. \]
 
   The projection \(π : A×B ↬ A\) is defined by
@@ -86,7 +85,7 @@ TODO BorceuxV3.
 \end{note}
 
 \begin{construction}
-  The sum \(A+B\) is given by \(\abs A+\abs B\) with equality
+  The \emph{sum \(A+B\)} is given by \(\carr A+\carr B\) with equality
   \begin{align*}
     &\eq {\inl x} {\inl x'} ≔ \eq[A] x {x'}\\
     &\eq {\inl x} {\inr y'} ≔ ⊥\\
@@ -99,25 +98,44 @@ TODO BorceuxV3.
 \end{construction}
 
 \begin{construction}
-  The subobject classifier \(Ω\) is given by \(\h\) with \(∧\) as equality.
+  The \emph{subobject classifier \(Ω\)} is given by \(\h\) with \(∧\) as equality.
 \end{construction}
 
 \begin{construction}
-  The exponent \(B^A\) is given by
-  \[ \set{f : \abs A × \abs B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
+  The \emph{exponential object \(B^A\)} is given by
+  \[ \set{f : \carr A × \carr B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
   with equality
   \[ \p{f,g} ↦ ⋀_{x∈A}⋁_{y∈B}f(x,y) ∧ g(x,y)\text. \]
 \end{construction}
+\begin{internal}
+  The equality in the internal language is
+  \(\for{x∈A}{\exist{y∈B}{f(x, y) ∧ g(x, y)}}\) which can be rephrased as
+  \(\for{x∈A}{f(a) = g(a)}\). Thus equality models function extensionality,
+  which is know to hold in Grothendieck toposes.
+\end{internal}
 
 \begin{fact}
-  The powerobject \(𝒫A = Ω^A\) can be given as the discrete Heyting-valued set
-  on \(\set{P : \abs A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
+  The \emph{power-object \(𝒫A = Ω^A\)} can be given as the discrete Heyting-valued set
+  on \(\set{P : \carr A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
 \end{fact}
 
 \begin{construction}
-  The restriction \(A\res p\) is given by \(\set{x ∈ A}{\e x \between p}\)
+  The \emph{restriction \(A\res p\)} is given by \(\set{x ∈ A}{\e x \between p}\)
 \end{construction}
 
+\begin{construction}
+  Given a Heyting-valued set \(A\) and a relation \(R : \carr A × \carr A → \h\)
+  satisfying
+  \begin{gather}
+    \e x ≤ R x x\\
+    R x y ≤ R y x\\
+    R x y ∧ R y z ≤ R x z
+  \end{gather}
+  we can form the \emph{quotient \(\quot A R\)} with carrier
+  \(\carr A\) and equality \(R\).
+\end{construction}
+Subquotients can be formed similarly, by merely dropping the first condition on
+the relation.
 
 \subsection{CwF structure}
 
@@ -126,11 +144,13 @@ To define what is a family we first define a ``universe''.
 \begin{construction}
   Up to size issues, the class of all Heyting-valued sets \(\hvsets\) with
   equality \(\p{A,B} ↦ ⋁\set{p∈\h}{A\res p = B\res p}\) is a Heyting-valued set.
+
+  We will call it the \emph{Universe \(𝒰\)}.
 \end{construction}
 
 \begin{construction}
   Given a  family \(\p{Bₐ}_{a∈A}\) of Heyting-valued sets, such that
-  \(Bₐ\res{\eq a {a'}} = B_{a'}\res{\eq a {a'}}\), the gluing \(⋁B\) has carrier
+  \(Bₐ\res{\eq a {a'}} = B_{a'}\res{\eq a {a'}}\), the \emph{gluing \(⋁B\)} has carrier
   \[ \set{b ∈ Bₐ\res{\e a}}{a ∈ A} = ⋃_{a ∈ A}Bₐ\res{\e a} \] and equality
   %\[ \p{b, b'} ↦ ⋁_{a,a' ∈ A} b ∈ Bₐ\res {\eq a {a'}} ∧ b' ∈ B_{a'}\res{\eq a {a'}}
   %  ∧ \eq a {a'} ∧ \eq[Bₐ\res {\eq a {a'}}] b {b'}\text. \]
@@ -177,7 +197,8 @@ To define what is a family we first define a ``universe''.
   satisfying \(φ(x)\res{\eq x {x'}} = φ(x')\res{\eq x {x'}}\) and
   \(φ(x) = φ(x)\res{\e x}\).
 
-  We denote the collection of families over \(A\) by \(\fam A\).
+  We denote the collection of families over \(A\) by \(\fam A\). The first
+  property is called \emph{coherence} and the second is called \emph{canonicity}.
 \end{definition}
 
 \begin{construction}
@@ -189,9 +210,6 @@ To define what is a family we first define a ``universe''.
   \mordef{\tilde{\p{-}}}{\fam A}{\p{A ↬ 𝒰}}
   {B}{\p{\p{a, X} ↦ \e a ∧ \eq[𝒰] {B(a)} X}\text.}
 \end{construction}
-% \begin{theorem}
-%   Morphisms \(f : A ↬ 𝒰\) correspond precisely to families \(φ\) over \(A\).
-% \end{theorem}
 \begin{proof}
   The relation \(\tilde B\) is obviously a morphism \(A ↬ 𝒰\) for \(B ∈ \fam A\).
 

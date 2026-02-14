@@ -31,6 +31,7 @@
 \newcommand{\namedcat}[1]{\mathrm{#1}}
 \newcommand{\sets}{\namedcat{Sets}}
 \newcommand{\hvsets}{\namedcat{HVSets}}
+\newcommand{\quot}[2]{{#1}/_{\!#2}}
 %\newcommand{\eq}[3][]{#2 =_{#1} #3}
 %\newcommand{\eq}[3][]{\left⟦ #2 =_{#1} #3 \right⟧}
 \newcommand{\eq}[3][]{#2 \sim_{#1} #3}
@@ -40,6 +41,7 @@
 \DeclarePairedDelimiterX{\absolute}[1]{\lvert}{\rvert}{#1}
 \def\p{\parens*}
 \def\abs{\absolute*}
+\def\carr{\absolute*}
 \newcommand{\set}[2]{\left\{ #1 \mid #2 \right\}}
 \newcommand{\apart}{\ensuremath{\mathrel{\#}}}
 \newcommand{\mb}[1]{\mathbf{#1}}
@@ -64,7 +66,6 @@
 \defquantifier{pi}{\Pi}
 \def\tilde{\widetilde}
 }
-
 \newcommand{\newdef}[1]{
   \theoremstyle{definition}
   \newtheorem{#1}[theorem]{\MakeUppercase #1}
@@ -123,8 +124,8 @@
 \newcommand{\mordef}[5]{
   \[
   \begin{tabular}{rrcl}
-    #1 : & #2                     &   →   & #3 \\
-         & \multicolumn{1}{c}{#4} & \(↦\) & \multicolumn{1}{c}{#5}
+    \(#1 :\) & \(#2\)                     & \(→\) & \(#3\) \\
+             & \multicolumn{1}{c}{\(#4\)} & \(↦\) & \multicolumn{1}{c}{\(#5\)}
   \end{tabular}
   \]
 }
