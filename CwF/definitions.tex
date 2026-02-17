@@ -18,8 +18,21 @@
 \usepackage{amsthm}
 
 \DeclareMathOperator{\sh}{Sh}
+\DeclareMathOperator{\id}{id}
 \undef\fam
 \DeclareMathOperator{\fam}{Fam}
+\DeclareMathOperator{\ty}{Ty}
+\DeclareMathOperator{\tmop}{Tm}
+\newcommand{\ctx}{\mathsf{Ctx}}
+\newcommand{\tm}[2]{\tmop {#1} \: {#2}}
+\newcommand{\ext}[2]{#1.#2}
+\newcommand{\var}{\mathsf{var}}
+\DeclarePairedDelimiterX{\brackets}[1]{[}{]}{#1}
+\def\b{\brackets*}
+\newcommand{\subst}[1]{\b{#1}}
+\newcommand{\pair}{\mathsf{pair}}
+\newcommand{\idty}[3][]{\mathrm{Id}_{#1}\p{#2, #3}}
+
 \newcommand{\ressymb}{\mathchoice
   {\mkern-5mu↾\mkern-8mu}
   {\mkern-5mu↾\mkern-8mu}
@@ -31,6 +44,7 @@
 \newcommand{\namedcat}[1]{\mathrm{#1}}
 \newcommand{\sets}{\namedcat{Sets}}
 \newcommand{\hvsets}{\namedcat{HVSets}}
+\newcommand{\hvcwf}{\mathsf{HVTypes}}
 \newcommand{\quot}[2]{{#1}/_{\!#2}}
 %\newcommand{\eq}[3][]{#2 =_{#1} #3}
 %\newcommand{\eq}[3][]{\left⟦ #2 =_{#1} #3 \right⟧}

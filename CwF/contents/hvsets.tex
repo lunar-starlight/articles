@@ -308,21 +308,62 @@ To define what is a family we first define a ``universe''.
 % \end{proof}
 
 
+\begin{construction}
+  Up to size issues the category of Heyting-valued sets is a category with
+  families.
+
+  Let \(Γ\) and \(Δ\) be Heyting-valued sets, \(A\) a family over \(Γ\), and
+  \(γ : Δ ↬ Γ\).
+  \begin{itemize}
+  \item \(\ctx ≔ \hvsets\)
+  \item \(\ty Γ ≔ \fam Γ\)
+  \item \(\ty γ ≔ γ^*\)
+  \item \(\tm Γ A ≔ \set{\p{\sigma{g ∈ \carr Γ}{\carr {A(g)}}} → \h}{\ref{hvm:str}-\ref{hvm:total}}\)
+  \item \(\tm γ A ≔ f ↦ \p{\p{d, a} ↦ f(γ(d), a)}\)
+  \item \(\ext Γ A ≔ \p{\sigma{g ∈ \carr Γ}{\carr{A(g)}},
+      \p{\p{g, a},\p{g',a'}} ↦ \eq[Γ] g {g'} ∧ \eq[A(g)] a {a'}}\)
+    NOTE: gluing?
+  \item \(\ext γ t ≔ \p{d,\p{g,a}} ↦ γ(d, g) ∧ t(d, a)\)
+  \end{itemize}
+  Call this category with families \(\hvcwf\)
+\end{construction}
+
+\begin{construction}
+  \(\hvcwf\) has extensional dependent sums. Let \(Γ : \ctx\), \(A : \ty Γ\), and
+  \(B : \ty \ext Γ A\).
+  \begin{itemize}
+  \item \(Σ Α Β (g) ≔ \p{\sigma{a ∈ \carr{A(g)}}{\carr{B(g, a)}},
+      \p{\p{a,b},\p{a',b'}} ↦ \eq[A(g)] a {a'} ∧ \eq[B(g,a)] b {b'}}\)
+  \item \(\pair(\p{g, a}, b) ≔ \p{g, \p{a,b}} : \ext {\ext Γ A} B ≅ \ext Γ {Σ Α Β}\)
+  \end{itemize}
+\end{construction}
+
+\begin{construction}
+  \(\hvcwf\) has dependent products. Let \(Γ : \ctx\), \(A : \ty Γ\), and
+  \(B : \ty \ext Γ A\).
+  \begin{itemize}
+  \item \(Π Α Β (g) ≔
+    \p{\set{f : \sigma{a ∈ \carr{A(g)}}{\carr{B(g, a)}} → \h}{\ref{hvm:str}-\ref{hvm:unique}},
+      \p{f, f'} ↦ ⋀_{a ∈ A(g)}⋁_{b ∈ B(g,a)}f(a,b)∧f'(a,b)}\)
+  \item \(\tm Γ {\p{Π A B}} = \tm {\p{\ext Γ A}} B\)
+  \end{itemize}
+\end{construction}
 
 
+\begin{construction}
+  \(\hvcwf\) has unit types \(- ↦ \mb 1 ∈ \fam Γ\).
+\end{construction}
 
+\begin{construction}
+  \(\hvcwf\) has natural number types \(- ↦ ℕ ∈ \fam Γ\).
+\end{construction}
 
-
-
-
-
-
-
-
-
-
-
-\end{document}
+\begin{construction}
+  \(\hvcwf\) has extensional identity types.
+  \[
+    \idty[A] a {a'} (g) ≔ \mb 1 \res{\eq[A(g)] a {a'}}
+  \]
+\end{construction}
 
 %%% Local Variables:
 %%% mode: latex

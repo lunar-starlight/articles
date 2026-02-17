@@ -1,5 +1,33 @@
 \section{Categories with Families}
 
+\begin{definition}
+  A \emph{category with families} is comprised of the following data
+  \begin{itemize}
+  \item Category of contexts \(\ctx\) with a terminal object \(ε\).
+  \item Presheaf of types \(\ty\) over \(\ctx\).
+  \item Dependent presheaf of terms \(\tm\) over \(\ty\).
+  \item Dependent context extension functor of types to contexts \(\ext - -\).
+  \item Isomorphism
+    \(\ext - - : \sigma{γ : \ctx(Δ,Γ)}{\tm Δ {A\subst γ}} ≅ \ctx(Δ,\ext Γ A)\) with
+    inverse \(φ\).
+  \end{itemize}
+  satisfying equations
+  \begin{itemize}
+  \item \(\ext π \var = \id\)
+  \item \(\p{\ext γ t}∘δ = \ext {γ∘δ} {t\subst δ}\)
+  \item \(π ∘ \p{\ext γ t} = γ\)
+  \end{itemize}
+  where \(\p{π_Γ^A, \var_Γ^A} ≔ φ(\id_{\ext Γ A})\).
+
+\end{definition}
+
+From these we can derive \(\var\subst {\ext γ t} = t\) and define
+\(-(t) ≔ -\subst{\ext \id t}\).
+
+TODO: what is the deal with \(γ.A\) and it equaling \(\p{γ∘π}.\var\)
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
