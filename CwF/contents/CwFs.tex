@@ -16,16 +16,25 @@
   We will often omit the type and context annotations, as they can be deduced.
 \end{definition}
 
-
+\begin{theorem}
+  Let \(γ : Δ → Γ\), \(δ : Θ → Δ\), \(A : \ty Γ\), and \(t : \tm Δ {A\subst γ}\).
+  Then the following equalities hold.
   \begin{itemize}
   \item \(\ext γ A = \ext {\p{γ∘π}} {\var}\)
   \item \(\p{\ext γ t}∘δ = \ext {γ∘δ} {t\subst δ}\)
   \item \(π ∘ \p{\ext γ t} = γ\)
   \item \(\var\subst {\ext γ t} = t\)
   \end{itemize}
+\end{theorem}
+\begin{proof}
+  The first equality expresses naturality of the isomorphism in \(Γ\), while the
+  second expresses naturality in \(Δ\).
 
-  We can define \(-(t) ≔ -\subst{\ext \id t}\).
-
+  For the other two equalities we can write
+  \[ \ext γ t = \id ∘ \ext γ t = \ext π {\var} ∘ \ext γ t = \ext {\p{π ∘ \ext γ t}}
+    {\var\subst {\ext γ t}}\text. \]
+\end{proof}
+We can define \(-(t) ≔ -\subst{\ext \id t}\).
 
 
 
