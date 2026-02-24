@@ -32,16 +32,34 @@
 
   For the other two equalities we can write
   \[ \ext γ t = \id ∘ \ext γ t = \ext π {\var} ∘ \ext γ t = \ext {\p{π ∘ \ext γ t}}
-    {\var\subst {\ext γ t}}\text. \]
+    {\var\subst {\ext γ t}}\text.\qedhere \]
 \end{proof}
 
 
 \begin{definition}
-  A category with families has dependent product types when...
-  where \(-(t) ≔ -\subst{\ext \id t}\).
+  A category with families has dependent product types or \(Π\) types when for
+  any \(A : \ty Γ\) and \(B : \ty {\ext Γ A}\) we have
+  \begin{itemize}
+  \item types \(Π A B : \ty Γ\) such that
+    \(\p{Π A B} \subst γ = Π A\subst γ B\subst {\ext γ A}\) and
+  \item a natural isomorphism \(\hat{\p -} : \tm Γ {\p{Π A B}} ≅ \tm {\ext Γ A} B : λ_Γ^{Α ⊢ Β}\) in \(Γ\).
+  \end{itemize}
 \end{definition}
+Given \(f : \tm Γ {\p{Π Α Β}}\) and \(t : \tm Γ A\) we can define application as
+\[ \ap f\: t ≔ \hat f(t) : \tm Γ B(t)\text, \]
+where \(-(t) ≔ -\subst{\ext \id t}\).
 
 
+\begin{definition}
+  A category with families has dependent sum types or \(Σ\) types when for
+  any \(A : \ty Γ\) and \(B : \ty {\ext Γ A}\) we have
+  \begin{itemize}
+  \item types \(Σ A B : \ty Γ\) such that
+    \(\p{Σ A B} \subst γ = Σ A\subst γ B\subst {\ext γ A}\) and
+  \item a natural isomorphism
+    \(\pair : \ext Γ {\p{Σ A B}} \overset{\tilde}→ \ext {\ext Γ A} B\) in \(Γ\).
+  \end{itemize}
+\end{definition}
 
 %%% Local Variables:
 %%% mode: latex
