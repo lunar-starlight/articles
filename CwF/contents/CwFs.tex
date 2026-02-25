@@ -5,10 +5,10 @@
   \begin{itemize}
   \item Category of contexts \(\ctx\) with a terminal object \(ε\).
   \item Presheaf of types \(\ty\) over \(\ctx\).
-  \item Dependent presheaf of terms \(\tm\) over \(\ty\).
+  \item Dependent presheaf of terms \(\tmop\) over \(\ty\).
   \item Dependent context extension functor of types to contexts \(\ext - -\).
   \item Natural isomorphism
-    \(\ext - - : \sigma{γ : \ctx(Δ,Γ)}{\tm Δ {A\subst γ}} ≅ \ctx(Δ,\ext Γ A)\)
+    \(\exttm - - : \sigma{γ : \ctx(Δ,Γ)}{\tm Δ {A\subst γ}} ≅ \ctx(Δ,\ext Γ A)\)
     in \(Γ\) and \(Δ\) with inverse \(φ\).
   \end{itemize}
 
@@ -20,10 +20,10 @@
   Let \(γ : Δ → Γ\), \(δ : Θ → Δ\), \(A : \ty Γ\), and \(t : \tm Δ {A\subst γ}\).
   Then the following equalities hold.
   \begin{itemize}
-  \item \(\ext γ A = \ext {\p{γ∘π}} {\var}\)
-  \item \(\p{\ext γ t}∘δ = \ext {γ∘δ} {t\subst δ}\)
-  \item \(π ∘ \p{\ext γ t} = γ\)
-  \item \(\var\subst {\ext γ t} = t\)
+  \item \(\exttm γ A = \exttm {γ∘π} {\var}\)
+  \item \(\exttm γ t ∘ δ = \exttm {γ∘δ} {t\subst δ}\)
+  \item \(π ∘ \exttm γ t = γ\)
+  \item \(\var\substext γ t = t\)
   \end{itemize}
 \end{theorem}
 \begin{proof}
@@ -31,23 +31,22 @@
   second expresses naturality in \(Δ\).
 
   For the other two equalities we can write
-  \[ \ext γ t = \id ∘ \ext γ t = \ext π {\var} ∘ \ext γ t = \ext {\p{π ∘ \ext γ t}}
-    {\var\subst {\ext γ t}}\text.\qedhere \]
+  \[ \exttm γ t = \id ∘ \exttm γ t = \exttm π {\var} ∘ \exttm γ t = \exttm {π ∘ \exttm γ t}
+    {\var\substext γ t}\text.\qedhere \]
 \end{proof}
-
 
 \begin{definition}
   A category with families has dependent product types or \(Π\) types when for
   any \(A : \ty Γ\) and \(B : \ty {\ext Γ A}\) we have
   \begin{itemize}
   \item types \(Π A B : \ty Γ\) such that
-    \(\p{Π A B} \subst γ = Π A\subst γ B\subst {\ext γ A}\) and
+    \(\p{Π A B} \subst γ = Π A\subst γ B\substext γ A\) and
   \item a natural isomorphism \(\hat{\p -} : \tm Γ {\p{Π A B}} ≅ \tm {\ext Γ A} B : λ_Γ^{Α ⊢ Β}\) in \(Γ\).
   \end{itemize}
 \end{definition}
 Given \(f : \tm Γ {\p{Π Α Β}}\) and \(t : \tm Γ A\) we can define application as
 \[ \ap f\: t ≔ \hat f(t) : \tm Γ B(t)\text, \]
-where \(-(t) ≔ -\subst{\ext \id t}\).
+where \(-(t) ≔ -\substext \id t\).
 
 
 \begin{definition}
@@ -55,9 +54,31 @@ where \(-(t) ≔ -\subst{\ext \id t}\).
   any \(A : \ty Γ\) and \(B : \ty {\ext Γ A}\) we have
   \begin{itemize}
   \item types \(Σ A B : \ty Γ\) such that
-    \(\p{Σ A B} \subst γ = Σ A\subst γ B\subst {\ext γ A}\) and
+    \(\p{Σ A B} \subst γ = Σ A\subst γ B\substext γ A\) and
   \item a natural isomorphism
-    \(\pair : \ext Γ {\p{Σ A B}} \overset{\tilde}→ \ext {\ext Γ A} B\) in \(Γ\).
+    \(\pair : \ext Γ {\p{Σ A B}} ≅ \ext {\ext Γ A} B\) in \(Γ\).
+  \item (alt) a (natural?) isomorphism
+    \(\pair : \sigma{a : \tm Γ A}{b : \tm Γ {B(a)}} ≅ \tm Γ {\p{Σ Α Β}}\)
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
+  A category with families has unit types when we have a type \(\1 : \ty \emp\)
+  such that \(\emp ≅ \ext \emp \1\).
+\end{definition}
+
+\begin{definition}
+  A category with families has natural numbers types when we have a type
+  \(ℕ : \ty \emp\) such that \(\ext \emp ℕ\) is a natural numbers object in
+  \(\ctx\).
+\end{definition}
+
+\begin{definition}
+  A category with families has identity types when we have
+  \begin{itemize}
+  \item types \(\idty[A] : \ty {\ext {\ext Γ A} A^↑}\) such that
+    \(\idty[A]\subst{γ^{↑↑}} = \idty[A\subst γ]\) and
+  \item a natural isomorphism \(\refl : \ext Γ A ≅ \ext {\ext {\ext Γ A} {A^↑}} {\idty[A]}\).
   \end{itemize}
 \end{definition}
 

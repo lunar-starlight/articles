@@ -17,6 +17,9 @@
 
 \usepackage{amsthm}
 
+\DeclarePairedDelimiterX{\brackets}[1]{[}{]}{#1}
+\def\b{\brackets*}
+
 \DeclareMathOperator{\sh}{Sh}
 \DeclareMathOperator{\id}{id}
 \undef\fam
@@ -24,15 +27,23 @@
 \DeclareMathOperator{\ty}{Ty}
 \DeclareMathOperator{\tmop}{Tm}
 \newcommand{\ctx}{\mathsf{Ctx}}
+\def\emp{\diamond}
 \newcommand{\tm}[2]{\tmop {#1} \: {#2}}
-\newcommand{\ext}[2]{#1.#2}
-\newcommand{\var}{\mathsf{var}}
-\DeclarePairedDelimiterX{\brackets}[1]{[}{]}{#1}
-\def\b{\brackets*}
 \newcommand{\subst}[1]{\b{#1}}
+\newcommand{\ext}[2]{#1.#2}
+\makeatletter
+\newcommand{\@exttminner}[2]{#1.#2}
+\newcommand{\@exttmouter}[1]{\left\langle #1 \right\rangle}
+\newcommand{\exttm}[2]{\@exttmouter {\@exttminner {#1} {#2}}}
+\newcommand{\substext}[2]{\subst{\@exttminner {#1} {#2}}}
+\makeatother
+\newcommand{\var}{\mathsf{var}}
 \DeclareMathOperator{\ap}{ap}
 \newcommand{\pair}{\mathsf{pair}}
-\newcommand{\idty}[3][]{\mathrm{Id}_{#1}\p{#2, #3}}
+\newcommand{\idty}[1][]{\mathrm{Id}_{#1}}
+\newcommand{\idtyap}[3][]{\mathrm{Id}_{#1}\p{#2, #3}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\refl}[1][]{\mathsf{refl}_{#1}}
 
 \newcommand{\ressymb}{\mathchoice
   {\mkern-5mu↾\mkern-8mu}
