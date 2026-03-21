@@ -20,10 +20,17 @@
   Let \(γ : Δ → Γ\), \(δ : Θ → Δ\), \(A : \ty Γ\), and \(t : \tm Δ {A\subst γ}\).
   Then the following equalities hold.
   \begin{itemize}
+<<<<<<< HEAD
   \item \(\exttm γ A = \exttm {γ∘π} {\var}\)
   \item \(\exttm γ t ∘ δ = \exttm {γ∘δ} {t\subst δ}\)
   \item \(π ∘ \exttm γ t = γ\)
   \item \(\var\substext γ t = t\)
+=======
+  \item \(\ext γ A = \exttm {\p{γ∘π}} {\var}\)
+  \item \(\p{\exttm γ t}∘δ = \exttm {γ∘δ} {t\subst δ}\)
+  \item \(π ∘ \p{\exttm γ t} = γ\)
+  \item \(\var\subst {\exttm γ t} = t\)
+>>>>>>> 9ca64ea (forked article to hvsets and cwfs)
   \end{itemize}
 \end{theorem}
 \begin{proof}
@@ -47,7 +54,6 @@
 Given \(f : \tm Γ {\p{Π Α Β}}\) and \(t : \tm Γ A\) we can define application as
 \[ \ap f\: t ≔ \hat f(t) : \tm Γ B(t)\text, \]
 where \(-(t) ≔ -\substext \id t\).
-
 
 \begin{definition}
   A category with families has dependent sum types or \(Σ\) types when for

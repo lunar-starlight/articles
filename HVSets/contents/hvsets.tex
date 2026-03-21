@@ -1,0 +1,243 @@
+\section{Heyting-valued Sets}
+
+\def\h{\mathcal{H}}
+
+\subsection{Preliminaries}
+
+\begin{definition}
+  A \emph{Heyting-valued set \(A\)} is a carrier set \(\carr A\) equipped with a
+  ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
+  \begin{gather}
+    \label{hvs:symm}  \eq x y ≤ \eq y x\\
+    \label{hvs:trans} \eq x y ∧ \eq y z ≤ \eq x z
+  \end{gather}
+
+  Define \(\e x ≔ \eq x x\).
+\end{definition}
+
+\begin{definition}
+  A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued
+  functional relation'', meaning it is a map
+  \(\carr f : \carr A × \carr B → \h\)
+  satisfying
+  \begin{gather}
+    \label{hvm:str}    f(x,y) ≤ \e x ∧ \e y\\
+    \label{hvm:well}   \eq {x'} x ∧ f(x, y) ∧ \eq y {y'} ≤ f(x', y')\\
+    \label{hvm:unique} f(x, y) ∧ f(x, y') ≤ \eq y {y'}\\
+    \label{hvm:total}  \e x ≤ ⋁_{y ∈ B}f(x, y)
+  \end{gather}
+\end{definition}
+
+\begin{fact}
+  The following hold.
+
+  \begin{enumerate}
+  \item \(f(x,y)∧\eq x {x'} = f(x',y)∧\eq x {x'}\)
+  \item \(\e x = ⋁_{y∈A}\eq x y\)
+  \end{enumerate}
+\end{fact}
+
+\begin{construction}
+  The product \(A×B\) is given by \(\carr A × \carr B\) with equality
+  \[ \eq{\p{x,y}}{\p{x',y'}} ≔ \eq x {x'} ∧ \eq y {y'}\text. \]
+
+  The projection \(π : A×B ↬ A\) is defined by
+  \[ \p{\p{x,y}, x'} ↦ \eq x {x'} ∧ \e y\text. \]
+  The other projection is defined similarly
+\end{construction}
+\begin{proof}
+  Symmetry and transitivity of the equality follow clearly.
+
+  Likewise, the projection is clearly strict and well-defined.
+  Uniqueness holds via
+  \begin{align*}
+    π(\p{x,y},x') ∧ π(\p{x,y},x'')
+    &= \eq x {x'} ∧ \e y ∧ \eq x {x''} ∧ \e y\\
+    &= \eq x {x'} ∧ \eq x {x''} ∧ \e y\\
+    &≤ \eq {x'} {x''} ∧ \e y\\
+    &≤ \eq {x'} {x''}\text.
+  \end{align*}
+  Totality holds via
+  \begin{align*}
+    \e{\p{x,y}} = \e x ∧ \e y = ⋁_{x'∈A}\eq x {x'} ∧ \e y\text.
+  \end{align*}
+\end{proof}
+
+In the following, I will not write out these proofs. A standard reference is
+TODO BorceuxV3.
+
+\begin{construction}
+  The \emph{discrete Heyting-valued set \(\c A\) on \(A\)} has \(A\) as it's
+  carrier and equality defined by \(\p{x,y} ↦ ⋁\set{⊤}{x=y}\).
+\end{construction}
+
+\begin{fact}
+  The empty type \(∅\) is given by the empty carrier.
+
+  The unit type \(\mb 1\) is given by \(\{\ast\}\) with \(\e\ast = ⊤\). This is
+  the discrete Heyting-valued set on \(\{\ast\}\).
+
+  The natural numbers object is the discrete Heyting-valued set on \(ℕ\).
+
+  The rational numbers object is the discrete Heyting-valued set on \(ℚ\).
+\end{fact}
+\begin{note}
+  The real numbers object is not necessarily discrete.
+\end{note}
+
+\begin{construction}
+  The \emph{sum \(A+B\)} is given by \(\carr A+\carr B\) with equality
+  \begin{align*}
+    &\eq {\inl x} {\inl x'} ≔ \eq[A] x {x'}\\
+    &\eq {\inl x} {\inr y'} ≔ ⊥\\
+    &\eq {\inr y} {\inr x'} ≔ ⊥\\
+    &\eq {\inr y} {\inr y'} ≔ \eq[B] y {y'}
+  \end{align*}
+
+  The inclusion \(ι : A ↬ A+B\) is given by \(\p{x,t} ↦ \eq {\inl x} t\).
+  The other inclusion is defined similarly.
+\end{construction}
+
+\begin{construction}
+  The \emph{subobject classifier \(Ω\)} is given by \(\h\) with \(∧\) as equality.
+\end{construction}
+
+\begin{construction}
+  The \emph{exponential object \(B^A\)} is given by
+  \[ \set{f : \carr A × \carr B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
+  with equality
+  \[ \p{f,g} ↦ ⋀_{x∈A}⋁_{y∈B}f(x,y) ∧ g(x,y)\text. \]
+\end{construction}
+\begin{internal}
+  The equality in the internal language is
+  \(\for{x∈A}{\exist{y∈B}{f(x, y) ∧ g(x, y)}}\) which can be rephrased as
+  \(\for{x∈A}{f(a) = g(a)}\). Thus equality models function extensionality,
+  which is know to hold in Grothendieck toposes.
+\end{internal}
+
+\begin{fact}
+  The \emph{power-object \(𝒫A = Ω^A\)} can be given as the discrete Heyting-valued set
+  on \(\set{P : \carr A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
+\end{fact}
+
+% \begin{construction}
+%   The \emph{restriction \(A\res p\)} is given by \(\set{x ∈ A}{\e x \between p}\)
+% \end{construction}
+
+\begin{construction}
+  Given a Heyting-valued set \(A\) and a relation \(R : \carr A × \carr A → \h\)
+  satisfying
+  \begin{gather}
+    \e x ≤ R x x\\
+    R x y ≤ R y x\\
+    R x y ∧ R y z ≤ R x z
+  \end{gather}
+  we can form the \emph{quotient \(\quot A R\)} with carrier
+  \(\carr A\) and equality \(R\).
+\end{construction}
+Subquotients can be formed similarly, by merely dropping the first condition on
+the relation.
+
+
+\subsubsection{Internal logic}
+
+The internal logic is as in~\cite{Sco79}. In short it is intuitionistic
+higher-order logic with partial elements and equality. Furthermore, every
+Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
+\ref{hvm:str}--\ref{hvm:well}) is a relational symbol in the internal language.
+
+\begin{definition}
+  The \emph{interpretation \(\i φ\)} of a formula \(φ\) is defined recursively
+  on the structure of the formula.
+
+  TODO: ja
+\end{definition}
+
+\begin{example}
+  We can work out an illustrative example. Consider the principle \(\lem*\),
+  which says \(\for{p:Ω}{p ∨ ¬p}\). Analysing this we get
+  \begin{align*}
+    \i{\for{p:Ω}{p ∨ ¬p}}
+    = ⋀_{p∈\h} {\e p ⇒ \i{p ∨ ¬p}}\\
+    = ⋀_{p∈\h} {\p{p ⇔ p} ⇒ p ∨ \p{p ⇒ ⊥}}\\
+    = ⋀_{p∈\h} {⊤ ⇒ p ∨ p^⊥}\\
+    = ⋀_{p∈\h} {p ∨ p^⊥}
+  \end{align*}
+
+  The principle will hold in \(\h\) precisely when this interpretation equals
+  \(⊤\). Since it is a conjunction that will hold only when all of its conjuncts
+  are \(⊤\). But that will only happen if every element of \(p ∈ \h\) satisfies
+  \(p ∨ p^⊥ = ⊤\), or in other words, when every element of the Heyting algebra
+  is complemented.
+\end{example}
+
+\begin{theorem}[Folklore]
+  The \(\lem*\) holds over \(\h\) iff \(\h\) is a Boolean algebra.
+\end{theorem}
+
+We can show a weaker version the same way.
+
+\begin{exercise}
+  Show that \(\wlem*\) holds over \(\h\) iff in \(\h\) every pseudo-complement is
+  complemented.
+
+  In the case where \(\h\) is a topology this corresponds to extremally
+  disconnected spaces (closure of every open set is open).
+\end{exercise}
+
+
+\subsubsection{Intermezzo: Real numbers}
+
+Let \(X\) be some topological space. Then we can synthesise it to a
+Heyting-valued set.
+
+\begin{construction}
+  The set \(\set{f : 𝒞(p, X)}{p ∈ \h}\) with equality
+  \[ \eq f g ≔ ⋁\set{q ≤ \e f ∧ \e g}{f\res q = g\res q} \]
+  is the Heyting-valued set \(X_{\h}\).
+\end{construction}
+
+We now have two synthesisations of \(ℝ\). One is the discrete one \(\c ℝ\), and
+the other the topological one \(ℝ_{\h}\). It turns out the latter one is the
+object of Dedekind reals.
+
+TODO: proof
+
+\begin{example}
+  The analytic limited principle of omniscience (\(\alpo*\)) states that the apartness on
+  real numbers is decidable, or \(\for{x : ℝ}{x = 0 ∨ x \apart 0}\).
+
+  Apartness is defined as \(x \apart y ≔ x < y ∨ x > y\) and
+  \(x > y ≔ \exist{q:ℚ}{x > q > y}\), where comparisons with rationals are done
+  by containment in the cuts.
+  Then \(\alpo*\) computes to ``for every continuous function \(f : 𝒞(p, ℝ)\)
+  \({⊤ = \i{f = 0 ∨ f \apart 0}}\)''. This further computes to
+  \({⊤ = \p{f^{-1}(ℝ⧵\{0\})}^⊥ ∨ f^{-1}(ℝ⧵\{0\})}\).
+  Then \(\alpo*\) is satisfied if and only if for every continuous function
+  \(f : 𝒞(p, ℝ)\) \(f^{-1}(ℝ⧵\{0\})\) is complemented.
+
+  In the topological case, we can rephrase this to say for every continuous map
+  \(f : 𝒞(U, ℝ)\) the zero-set \(f^{-1}\{0\}\) is open.
+\end{example}
+
+A similar computation can be carried out for the Cantor space \({2^ℕ}_{\h}\). It
+turns out this space is just the object \(2^ℕ\).
+
+\begin{exercise}
+  \sloppy
+  Let \(\h\) be a second-countable topological space (or a localic equivalent).
+  Show that \(\lpo*\) holds over \(\h\) iff \(\h\) is locally connected.
+
+  Note: This will need some topological computation, but a useful lemma is that
+  a space is locally connected iff intersection of relatively clopen subsets of
+  \(U\) is again relatively clopen in \(U\). You may take this as given (it is
+  not part of the exercise per se, but it is what needs to be done in practice
+  to obtain useful characterisations).
+\end{exercise}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
