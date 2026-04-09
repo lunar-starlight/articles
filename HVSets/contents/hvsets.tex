@@ -5,8 +5,7 @@
 \subsection{Preliminaries}
 
 \begin{definition}
-  A \emph{Heyting-valued set \(A\)} is a carrier set \(\carr A\) equipped with a
-  ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
+  A \emph{Heyting-valued set \(A\)} is a carrier set \(\carr A\) equipped with a ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
   \begin{gather}
     \label{hvs:symm}  \eq x y ≤ \eq y x\\
     \label{hvs:trans} \eq x y ∧ \eq y z ≤ \eq x z
@@ -16,10 +15,7 @@
 \end{definition}
 
 \begin{definition}
-  A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued
-  functional relation'', meaning it is a map
-  \(\carr f : \carr A × \carr B → \h\)
-  satisfying
+  A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued functional relation'', meaning it is a map \(\carr f : \carr A × \carr B → \h\) satisfying
   \begin{gather}
     \label{hvm:str}    f(x,y) ≤ \e x ∧ \e y\\
     \label{hvm:well}   \eq {x'} x ∧ f(x, y) ∧ \eq y {y'} ≤ f(x', y')\\
@@ -260,10 +256,18 @@ turns out this space is just the object power-object \(2^ℕ\).
   \begin{align*}
     \i{\for{α:2^ℕ}{α \apart 0 ∨ α = 0}}
     &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0 ∨ α = 0}}\\
-    &= ⋀_{p∈\h} {\e α ⇒ }}\\
-    &= ⋀_{p∈\h} {⊤ ⇒ p ∨ p^⊥}\\
-    &= ⋀_{p∈\h} {p ∨ p^⊥}
+    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \p{⋀_{n∈ℕ} \i{α n = 1}} ∨ \p{⋁_{n∈ℕ} \i{α n = 0}}}
   \end{align*}
+
+  Let \(Uₙ ≔ \i{α n = 1}\). This is a clopen set with complement \(\i{α n = 0}\).
+  This is a sequence of relatively clopen sets in \(\e α\).
+  Conversely, if \(Uₙ\) is a sequence of relatively clopen sets in \(U ∈ \h\) we can form the map \(α : 𝒞(U, 2^ℕ)\) by \(t ↦ λ n : ℕ.\; t ∈ Uₙ\).
+  For this map we have \(\i{α n = 1} = Uₙ\).
+
+  Thus \(\lpo*\) holds iff for every sequence of relatively clopen sets their intersection is open (and thus clopen).
+
+  To make the step from closure under countable intersections to arbitrary intersections we use second-countability of the space.
+
 \end{solution}
 
 
