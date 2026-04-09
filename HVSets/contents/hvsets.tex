@@ -34,6 +34,8 @@
   \begin{enumerate}
   \item \(f(x,y)∧\eq x {x'} = f(x',y)∧\eq x {x'}\)
   \item \(\e x = ⋁_{y∈A}\eq x y\)
+  \item \(\e x = ⋁_{y∈B}f(x,y)\)
+  \item \(f(x, y) = ⋁_{y'∈B}f(x,y')∧\eq y {y'} = ⋁_{x'∈A}f(x',y)∧\eq x {x'}\)
   \end{enumerate}
 \end{fact}
 
@@ -158,21 +160,20 @@ Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
   which says \(\for{p:Ω}{p ∨ ¬p}\). Analysing this we get
   \begin{align*}
     \i{\for{p:Ω}{p ∨ ¬p}}
-    = ⋀_{p∈\h} {\e p ⇒ \i{p ∨ ¬p}}\\
-    = ⋀_{p∈\h} {\p{p ⇔ p} ⇒ p ∨ \p{p ⇒ ⊥}}\\
-    = ⋀_{p∈\h} {⊤ ⇒ p ∨ p^⊥}\\
-    = ⋀_{p∈\h} {p ∨ p^⊥}
+    &= ⋀_{p∈\h} {\e p ⇒ \i{p ∨ ¬p}}\\
+    &= ⋀_{p∈\h} {\p{p ⇔ p} ⇒ p ∨ \p{p ⇒ ⊥}}\\
+    &= ⋀_{p∈\h} {⊤ ⇒ p ∨ p^⊥}\\
+    &= ⋀_{p∈\h} {p ∨ p^⊥}
   \end{align*}
 
   The principle will hold in \(\h\) precisely when this interpretation equals
   \(⊤\). Since it is a conjunction that will hold only when all of its conjuncts
-  are \(⊤\). But that will only happen if every element of \(p ∈ \h\) satisfies
-  \(p ∨ p^⊥ = ⊤\), or in other words, when every element of the Heyting algebra
-  is complemented.
+  (\(p ∨ p^⊥\)) are \(⊤\). In other words, \(\lem*\) holds over \(\h\) when
+  every element of the Heyting algebra is complemented.
 \end{example}
 
-\begin{theorem}[Folklore]
-  The \(\lem*\) holds over \(\h\) iff \(\h\) is a Boolean algebra.
+\begin{theorem}
+  \(\lem*\) holds over \(\h\) iff \(\h\) is a Boolean algebra.
 \end{theorem}
 
 We can show a weaker version the same way.
@@ -184,17 +185,35 @@ We can show a weaker version the same way.
   In the case where \(\h\) is a topology this corresponds to extremally
   disconnected spaces (closure of every open set is open).
 \end{exercise}
+\begin{solution}
+  Again we compute
+  \begin{align*}
+    \i{\for{p:Ω}{¬p ∨ ¬¬p}}
+    &= ⋀_{p∈\h} {\e p ⇒ \i{¬p ∨ ¬¬p}}\\
+    &= ⋀_{p∈\h} {p^⊥ ∨ p^⊥^⊥}\\
+  \end{align*}
 
+  This then by the same argument means that for every \(p ∈ \h\) we have \(p^⊥\)
+  is complemented.
+
+  In the case of \(\h = 𝒪X\) saying that an open set is complemented is
+  equivalent to saying it is closed. Also, the pseudo-complement in topological
+  spaces is the exterior operation (interior of the complement), so this says
+  that every exterior of an open set is closed. Then consider what this means
+  for complements. The complement of an exterior is the closure, so then this
+  says ``the closure of every open set is open'', which is exactly the
+  definition of an extremally disconnected space.
+\end{solution}
 
 \subsubsection{Intermezzo: Real numbers}
 
-Let \(X\) be some topological space. Then we can synthesise it to a
+Let \(T\) be some topological space. Then we can synthesise it to a
 Heyting-valued set.
 
 \begin{construction}
-  The set \(\set{f : 𝒞(p, X)}{p ∈ \h}\) with equality
-  \[ \eq f g ≔ ⋁\set{q ≤ \e f ∧ \e g}{f\res q = g\res q} \]
-  is the Heyting-valued set \(X_{\h}\).
+  The set \(\set{f : 𝒞(U, T)}{U ∈ \h}\) with equality
+  \[ \eq f g ≔ ⋁\set{V ≤ \e f ∧ \e g}{f\res V = g\res V} \]
+  is the topological Heyting-valued set \(X_{\h}\).
 \end{construction}
 
 We now have two synthesisations of \(ℝ\). One is the discrete one \(\c ℝ\), and
@@ -208,23 +227,25 @@ TODO: proof
   real numbers is decidable, or \(\for{x : ℝ}{x = 0 ∨ x \apart 0}\).
 
   Apartness is defined as \(x \apart y ≔ x < y ∨ x > y\) and
-  \(x > y ≔ \exist{q:ℚ}{x > q > y}\), where comparisons with rationals are done
-  by containment in the cuts.
-  Then \(\alpo*\) computes to ``for every continuous function \(f : 𝒞(p, ℝ)\)
-  \({⊤ = \i{f = 0 ∨ f \apart 0}}\)''. This further computes to
-  \({⊤ = \p{f^{-1}(ℝ⧵\{0\})}^⊥ ∨ f^{-1}(ℝ⧵\{0\})}\).
+  \(x < y ≔ \exist{q:ℚ}{x < q < y}\), where comparisons with rationals are done
+  by containment in the cuts. These compute to
+  \[ \i{x < y} = (y-x)⁻¹(0, ∞) \]
+  and
+  \[ \i{x \apart y} = (y-x)⁻¹(ℝ-\{0\})\text. \]
+
+  Then \(\alpo*\) computes to ``for every continuous function \(f : U → ℝ\) we
+  have \({⊤ = \p{f^{-1}(ℝ-\{0\})}^⊥ ∨ f^{-1}(ℝ-\{0\})}\).''
   Then \(\alpo*\) is satisfied if and only if for every continuous function
-  \(f : 𝒞(p, ℝ)\) \(f^{-1}(ℝ⧵\{0\})\) is complemented.
+  \(f : 𝒞(p, ℝ)\) \(f^{-1}(ℝ-\{0\})\) is complemented.
 
   In the topological case, we can rephrase this to say for every continuous map
-  \(f : 𝒞(U, ℝ)\) the zero-set \(f^{-1}\{0\}\) is open.
+  \(f : U → ℝ\) the zero-set \(f^{-1}\{0\}\) is open.
 \end{example}
 
 A similar computation can be carried out for the Cantor space \({2^ℕ}_{\h}\). It
-turns out this space is just the object \(2^ℕ\).
+turns out this space is just the object power-object \(2^ℕ\).
 
 \begin{exercise}
-  \sloppy
   Let \(\h\) be a second-countable topological space (or a localic equivalent).
   Show that \(\lpo*\) holds over \(\h\) iff \(\h\) is locally connected.
 
@@ -234,7 +255,16 @@ turns out this space is just the object \(2^ℕ\).
   not part of the exercise per se, but it is what needs to be done in practice
   to obtain useful characterisations).
 \end{exercise}
-
+\begin{solution}
+  First compute what \(\lpo*\) means.
+  \begin{align*}
+    \i{\for{α:2^ℕ}{α \apart 0 ∨ α = 0}}
+    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0 ∨ α = 0}}\\
+    &= ⋀_{p∈\h} {\e α ⇒ }}\\
+    &= ⋀_{p∈\h} {⊤ ⇒ p ∨ p^⊥}\\
+    &= ⋀_{p∈\h} {p ∨ p^⊥}
+  \end{align*}
+\end{solution}
 
 
 %%% Local Variables:
