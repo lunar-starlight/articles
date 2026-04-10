@@ -264,10 +264,23 @@ turns out this space is just the object power-object \(2^ℕ\).
   Conversely, if \(Uₙ\) is a sequence of relatively clopen sets in \(U ∈ \h\) we can form the map \(α : 𝒞(U, 2^ℕ)\) by \(t ↦ λ n : ℕ.\; t ∈ Uₙ\).
   For this map we have \(\i{α n = 1} = Uₙ\).
 
-  Thus \(\lpo*\) holds iff for every sequence of relatively clopen sets their intersection is open (and thus clopen).
+  Thus \(\lpo*\) holds iff for every sequence of relatively clopen sets their intersection is open (and thus clopen) or equivalently, if their union is closed.
 
-  To make the step from closure under countable intersections to arbitrary intersections we use second-countability of the space.
+  To make the step from closure under countable unions to arbitrary unions we use second-countability of the space.
+  Let \(\{Bₙ\}\) be a countable basis for the space and \(\{Vᵢ\}_{i∈I}\) a family of relatively clopen subsets of \(U\).
+  Define
+  \[
+    Wₙ ≔
+    \begin{cases}
+      Vᵢ \quad; \text{for any \(i\) such that \(Bₙ ⊆ Vᵢ\)}\\
+      ∅  \quad; \text{if no such \(i\) exists.}
+    \end{cases}
+  \]
+  Now I claim that \(⋃_{n∈ℕ}Wₙ = ⋃_{i∈I}Vᵢ\).
+  Take \(x ∈ Vᵢ\). Then since there is some basic \(Bₙ ⊆ Vᵢ\) containing \(x\), we know that \(Wₙ = Vⱼ\) for some \(j∈I\), such that \(x ∈ Bₙ ⊆ Vⱼ\), therefore \(x ∈ Wₙ\).
+  Thus the lattice of clopen sets is complete.
 
+  To show that the space is locally connected recall that connected components are intersections of all clopen sets containing them. Then by the above the intersection of clopen sets is again clopen, therefore the connected components of the space are open, which completes the proof.
 \end{solution}
 
 
