@@ -133,9 +133,10 @@ TODO BorceuxV3.
   we can form the \emph{quotient \(\quot A R\)} with carrier
   \(\carr A\) and equality \(R\).
 \end{construction}
-Subquotients can be formed similarly, by merely dropping the first condition on
-the relation.
-
+\begin{note}
+  Subquotients can be formed similarly, by merely dropping the first condition on the relation.
+  If instead \(R x x ≤ \e x\) holds the above construction constructs the subset given by the predicate \(R x x\).
+\end{note}
 
 \subsubsection{Internal logic}
 
@@ -167,6 +168,9 @@ Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
   (\(p ∨ p^⊥\)) are \(⊤\). In other words, \(\lem*\) holds over \(\h\) when
   every element of the Heyting algebra is complemented.
 \end{example}
+\begin{note}
+  The final term in the above computation could be rewritten as \(⋀_{p∈\h\text{ dense}} p\), i.~e. ``the meet of all dense sublocales''. This often simplifies computations, for example, sheaves over the Sierpinski space satisfy \(¬¬\lem*\) but not \(\lem*\), since \(\lem*\) since the open point is the only non-trivial dense open.
+\end{note}
 
 \begin{theorem}
   \(\lem*\) holds over \(\h\) iff \(\h\) is a Boolean algebra.
@@ -186,9 +190,8 @@ We can show a weaker version the same way.
   \begin{align*}
     \i{\for{p:Ω}{¬p ∨ ¬¬p}}
     &= ⋀_{p∈\h} {\e p ⇒ \i{¬p ∨ ¬¬p}}\\
-    &= ⋀_{p∈\h} {p^⊥ ∨ p^⊥^⊥}\\
+    &= ⋀_{p∈\h} {p^⊥ ∨ p^{⊥⊥}}
   \end{align*}
-
   This then by the same argument means that for every \(p ∈ \h\) we have \(p^⊥\)
   is complemented.
 
@@ -201,6 +204,15 @@ We can show a weaker version the same way.
   definition of an extremally disconnected space.
 \end{solution}
 
+\begin{note}
+  A similar approach as above can be applied here, for example in (TODO: cite DeMorganisation of a locale) they construct the greatest sublocale where \(\wlem*\) holds as the intersection of all open sublocales of the form \(p^⊥ ∨ p^{⊥⊥}\). These however do not seem to have a characterizations as nice as ``dense sublocales''.
+\end{note}
+
+% \begin{note}
+%   The above theorems are related to the following known facts about a locale \(ℒ\): ``the locale \(ℒ_{¬¬}\) satisfies \(\lem*\)'' and ``the locale ''
+%   The locale \(ℒ_{¬¬}\) is the meet of all dense sublocales and
+% \end{note}
+
 \subsubsection{Intermezzo: Real numbers}
 
 Let \(T\) be some topological space. Then we can synthesise it to a
@@ -209,11 +221,11 @@ Heyting-valued set.
 \begin{construction}
   The set \(\set{f : 𝒞(U, T)}{U ∈ \h}\) with equality
   \[ \eq f g ≔ ⋁\set{V ≤ \e f ∧ \e g}{f\res V = g\res V} \]
-  is the topological Heyting-valued set \(X_{\h}\).
+  is the topological Heyting-valued set \(\t X\).
 \end{construction}
 
 We now have two synthesisations of \(ℝ\). One is the discrete one \(\c ℝ\), and
-the other the topological one \(ℝ_{\h}\). It turns out the latter one is the
+the other the topological one \(\t ℝ\). It turns out the latter one is the
 object of Dedekind reals.
 
 TODO: proof
@@ -238,26 +250,26 @@ TODO: proof
   \(f : U → ℝ\) the zero-set \(f^{-1}\{0\}\) is open.
 \end{example}
 
-A similar computation can be carried out for the Cantor space \({2^ℕ}_{\h}\). It
+A similar computation can be carried out for the Cantor space \(\t{2^ℕ}\). It
 turns out this space is just the object power-object \(2^ℕ\).
 
 \begin{exercise}
   Let \(\h\) be a second-countable topological space (or a localic equivalent).
   Show that \(\lpo*\) holds over \(\h\) iff \(\h\) is locally connected.
 
-  Note: This will need some topological computation, but a useful lemma is that
-  a space is locally connected iff intersection of relatively clopen subsets of
-  \(U\) is again relatively clopen in \(U\). You may take this as given (it is
-  not part of the exercise per se, but it is what needs to be done in practice
-  to obtain useful characterisations).
+  Note: This will need some topological computation, but a useful lemma is that a space is locally connected iff union of relatively clopen subsets of \(U\) is again relatively clopen in \(U\). You may take this as given (it is not part of the exercise per se, but it is what needs to be done in practice to obtain useful characterisations).
 \end{exercise}
 \begin{solution}
   First compute what \(\lpo*\) means.
   \begin{align*}
     \i{\for{α:2^ℕ}{α \apart 0 ∨ α = 0}}
     &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0 ∨ α = 0}}\\
-    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \p{⋀_{n∈ℕ} \i{α n = 1}} ∨ \p{⋁_{n∈ℕ} \i{α n = 0}}}
+    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0} ∨ \i{α = 0}}
   \end{align*}
+  We may now reinterpret each \(α ∈ \t{2^ℕ}\) as a sequence of relatively clopen sets in \(\e α\), namely the sequence \(k ↦ \i{αₖ = 1}\). Thus, \(\lpo*\) holds iff for all \(p ∈ \h\) and all sequences of relatively clopen sets in \(p\) we have \(p ≤ ⋁ₙPₙ ∨ ⋀ₙ Pₙᶜ\).
+  In other words ``every sequence of relatively clopen sets has a relatively clopen union''.
+
+  Applying second-countability and the above allows us to pass from a countable sequence to an arbitrary family of relatively clopen sets, which completes the proof.
 
   Let \(Uₙ ≔ \i{α n = 1}\). This is a clopen set with complement \(\i{α n = 0}\).
   This is a sequence of relatively clopen sets in \(\e α\).
@@ -282,6 +294,13 @@ turns out this space is just the object power-object \(2^ℕ\).
 
   To show that the space is locally connected recall that connected components are intersections of all clopen sets containing them. Then by the above the intersection of clopen sets is again clopen, therefore the connected components of the space are open, which completes the proof.
 \end{solution}
+\begin{note}
+  The last step is not trivial and even seems to require some classical reasoning. I do not know of a reference for this result, but a straight-forward proof was provided to me by James Hanson in semi-public correspondence.
+\end{note}
+
+
+
+
 
 
 %%% Local Variables:
