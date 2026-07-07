@@ -1,8 +1,6 @@
 \section{Heyting-valued Sets}
 
-\def\h{\mathcal{H}}
-
-\subsection{Preliminaries}
+\index{\subsection}\subsection{Preliminaries}
 
 \begin{definition}
   A \emph{Heyting-valued set \(A\)} is a carrier set \(\carr A\) equipped with a ``Heyting-valued relation'' \(\eq[A]{-}{-} : A×A → \h\) satisfying
@@ -13,6 +11,9 @@
 
   Define \(\e x ≔ \eq x x\).
 \end{definition}
+The idea is, that we wish to systematically handle \emph{presentations} of sheaves.
+We think of elements of \(\carr A\) as the ``generators'' of a sheaf and the relation \(\eq[A]{}{}\) to represent the set of equations under which the generators should be quotiented.
+Then \(\e x\) represents the \emph{extent of definition} of a generator.
 
 \begin{definition}
   A \emph{Heyting-valued morphism \(f : A ↬ B\)} is a ``Heyting-valued functional relation'', meaning it is a map \(\carr f : \carr A × \carr B → \h\) satisfying
@@ -24,7 +25,14 @@
   \end{gather}
 \end{definition}
 
-\begin{fact}
+It is generally known that this constitutes a category, that is equivalent to the sheaf topos over the locale \(\h\).
+
+\begin{theorem}[Higgs]
+  The category of Heyting-valued sets valued in \(\h\) is equivalent to the category of sheaves on \(\h\).
+\end{theorem}
+
+Let us first list some convenient lemmata.
+\begin{lemma}
   The following hold.
 
   \begin{enumerate}
@@ -33,10 +41,10 @@
   \item \(\e x = ⋁_{y∈B}f(x,y)\)
   \item \(f(x, y) = ⋁_{y'∈B}f(x,y')∧\eq y {y'} = ⋁_{x'∈A}f(x',y)∧\eq x {x'}\)
   \end{enumerate}
-\end{fact}
+\end{lemma}
 
 \begin{construction}
-  The product \(A×B\) is given by \(\carr A × \carr B\) with equality
+  The product \(A×B\) is given by the carrier \(\carr A × \carr B\) with equality
   \[ \eq{\p{x,y}}{\p{x',y'}} ≔ \eq x {x'} ∧ \eq y {y'}\text. \]
 
   The projection \(π : A×B ↬ A\) is defined by
@@ -57,23 +65,24 @@
   \end{align*}
   Totality holds via
   \begin{align*}
-    \e{\p{x,y}} = \e x ∧ \e y = ⋁_{x'∈A}\eq x {x'} ∧ \e y\text.
+    \e{\p{x,y}} = \e x ∧ \e y = ⋁_{x'∈A}\eq x {x'} ∧ \e y\text.\qedhere
   \end{align*}
 \end{proof}
 
 In the following, I will not write out these proofs. A standard reference is
 TODO BorceuxV3.
 
+For every set we can consider the sheaf generated on it's elements with no equations.
 \begin{construction}
   The \emph{discrete Heyting-valued set \(\c A\) on \(A\)} has \(A\) as it's
   carrier and equality defined by \(\p{x,y} ↦ ⋁\set{⊤}{x=y}\).
 \end{construction}
 
 \begin{fact}
-  The empty type \(∅\) is given by the empty carrier.
+  The empty type \(∅\) is given by no generators.
 
-  The unit type \(\mb 1\) is given by \(\{\ast\}\) with \(\e\ast = ⊤\). This is
-  the discrete Heyting-valued set on \(\{\ast\}\).
+  The unit type \(\mb 1\) is given by one generator \(\ast\) with global extent, i.~e.~\(\e\ast = ⊤\).
+  This is also the discrete Heyting-valued set on \(\{\ast\}\).
 
   The natural numbers object is the discrete Heyting-valued set on \(ℕ\).
 
@@ -84,7 +93,7 @@ TODO BorceuxV3.
 \end{note}
 
 \begin{construction}
-  The \emph{sum \(A+B\)} is given by \(\carr A+\carr B\) with equality
+  The \emph{sum \(A+B\)} has carrier \(\carr A+\carr B\) with equality
   \begin{align*}
     &\eq {\inl x} {\inl x'} ≔ \eq[A] x {x'}\\
     &\eq {\inl x} {\inr y'} ≔ ⊥\\
@@ -97,25 +106,22 @@ TODO BorceuxV3.
 \end{construction}
 
 \begin{construction}
-  The \emph{subobject classifier \(Ω\)} is given by \(\h\) with \(∧\) as equality.
+  The \emph{subobject classifier \(Ω\)} has carrier \(\h\) with \(∧\) as equality.
 \end{construction}
 
 \begin{construction}
-  The \emph{exponential object \(B^A\)} is given by
+  The \emph{exponential object \(B^A\)} has carrier
   \[ \set{f : \carr A × \carr B → \h}{\ref{hvm:str}-\ref{hvm:unique}} \]
   with equality
   \[ \p{f,g} ↦ ⋀_{x∈A}⋁_{y∈B}f(x,y) ∧ g(x,y)\text. \]
 \end{construction}
 \begin{internal}
-  The equality in the internal language is
-  \(\for{x∈A}{\exist{y∈B}{f(x, y) ∧ g(x, y)}}\) which can be rephrased as
-  \(\for{x∈A}{f(a) = g(a)}\). Thus equality models function extensionality,
-  which is know to hold in Grothendieck toposes.
+  The equality in the internal language is \(\for{x∈A}{\exist{y∈B}{f(x, y) ∧ g(x, y)}}\) which can be rephrased as \(\for{x∈A}{f(a) = g(a)}\).
+  Thus equality models function extensionality, which is know to hold in Grothendieck toposes.
 \end{internal}
 
 \begin{fact}
-  The \emph{power-object \(𝒫A = Ω^A\)} can be given as the discrete Heyting-valued set
-  on \(\set{P : \carr A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
+  The \emph{power-object \(𝒫A = Ω^A\)} can be given as the discrete Heyting-valued set on \(\set{P : \carr A → Ω}{\eq {x'} x ∧ P(x) ≤ P(x')}\).
 \end{fact}
 
 % \begin{construction}
@@ -123,38 +129,34 @@ TODO BorceuxV3.
 % \end{construction}
 
 \begin{construction}
-  Given a Heyting-valued set \(A\) and a relation \(R : \carr A × \carr A → \h\)
-  satisfying
+  Given a Heyting-valued set \(A\) and a relation \(R : \carr A × \carr A → \h\) satisfying
   \begin{gather}
     \e x ≤ R x x\\
     R x y ≤ R y x\\
     R x y ∧ R y z ≤ R x z
   \end{gather}
-  we can form the \emph{quotient \(\quot A R\)} with carrier
-  \(\carr A\) and equality \(R\).
+  we can form the \emph{quotient \(\quot A R\)} with carrier \(\carr A\) and equality \(R\).
 \end{construction}
 \begin{note}
   Subquotients can be formed similarly, by merely dropping the first condition on the relation.
   If instead \(R x x ≤ \e x\) holds the above construction constructs the subset given by the predicate \(R x x\).
 \end{note}
 
-\subsubsection{Internal logic}
+\subsection{Internal logic}
 
-The internal logic is as in~\cite{Sco79}. In short it is intuitionistic
-higher-order logic with partial elements and equality. Furthermore, every
-Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
-\ref{hvm:str}--\ref{hvm:well}) is a relational symbol in the internal language.
+The internal logic is as in~\cite{Sco79}. In short it is intuitionistic higher-order logic with partial elements and equality.
+Furthermore, every Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying \ref{hvm:str}--\ref{hvm:well}) is a relational symbol in the internal language.
 
 \begin{definition}
-  The \emph{interpretation \(\i φ\)} of a formula \(φ\) is defined recursively
-  on the structure of the formula.
+  The \emph{interpretation \(\i φ\)} of a formula \(φ\) is defined recursively on the structure of the formula.
 
   TODO: ja
 \end{definition}
 
 \begin{example}
-  We can work out an illustrative example. Consider the principle \(\lem*\),
-  which says \(\for{p:Ω}{p ∨ ¬p}\). Analysing this we get
+  We can work out an illustrative example.
+  Consider the principle \(\lem*\), which says \(\for{p:Ω}{p ∨ ¬p}\).
+  Analysing this we get
   \begin{align*}
     \i{\for{p:Ω}{p ∨ ¬p}}
     &= ⋀_{p∈\h} {\e p ⇒ \i{p ∨ ¬p}}\\
@@ -163,13 +165,13 @@ Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
     &= ⋀_{p∈\h} {p ∨ p^⊥}
   \end{align*}
 
-  The principle will hold in \(\h\) precisely when this interpretation equals
-  \(⊤\). Since it is a conjunction that will hold only when all of its conjuncts
-  (\(p ∨ p^⊥\)) are \(⊤\). In other words, \(\lem*\) holds over \(\h\) when
-  every element of the Heyting algebra is complemented.
+  The principle will hold in \(\h\) precisely when this interpretation equals \(⊤\).
+  Since it is a conjunction that will hold only when all of its conjuncts (\(p ∨ p^⊥\)) are \(⊤\).
+  In other words, \(\lem*\) holds over \(\h\) when every element of the Heyting algebra is complemented.
 \end{example}
 \begin{note}
-  The final term in the above computation could be rewritten as \(⋀_{p∈\h\text{ dense}} p\), i.~e. ``the meet of all dense sublocales''. This often simplifies computations, for example, sheaves over the Sierpinski space satisfy \(¬¬\lem*\) but not \(\lem*\), since \(\lem*\) since the open point is the only non-trivial dense open.
+  The final term in the above computation could be rewritten as \(⋀_{p∈\h\text{ dense}} p\), i.~e. ``the meet of all dense sublocales''.
+  This often simplifies computations, for example, sheaves over the Sierpinski space satisfy \(¬¬\lem*\) but not \(\lem*\), since \(\lem*\) since the open point is the only non-trivial dense open.
 \end{note}
 
 \begin{theorem}
@@ -179,11 +181,9 @@ Heyting-valued relation \(R : \carr A × \carr B → \h\) (satisfying
 We can show a weaker version the same way.
 
 \begin{exercise}
-  Show that \(\wlem*\) holds over \(\h\) iff in \(\h\) every pseudo-complement is
-  complemented.
+  Show that \(\wlem*\) holds over \(\h\) iff in \(\h\) every pseudo-complement is complemented.
 
-  In the case where \(\h\) is a topology this corresponds to extremally
-  disconnected spaces (closure of every open set is open).
+  In the case where \(\h\) is a topology this corresponds to extremally disconnected spaces (closure of every open set is open).
 \end{exercise}
 \begin{solution}
   Again we compute
@@ -192,36 +192,32 @@ We can show a weaker version the same way.
     &= ⋀_{p∈\h} {\e p ⇒ \i{¬p ∨ ¬¬p}}\\
     &= ⋀_{p∈\h} {p^⊥ ∨ p^{⊥⊥}}
   \end{align*}
-  This then by the same argument means that for every \(p ∈ \h\) we have \(p^⊥\)
-  is complemented.
+  This then by the same argument means that for every \(p ∈ \h\) we have \(p^⊥\) is complemented.
 
-  In the case of \(\h = 𝒪X\) saying that an open set is complemented is
-  equivalent to saying it is closed. Also, the pseudo-complement in topological
-  spaces is the exterior operation (interior of the complement), so this says
-  that every exterior of an open set is closed. Then consider what this means
-  for complements. The complement of an exterior is the closure, so then this
-  says ``the closure of every open set is open'', which is exactly the
-  definition of an extremally disconnected space.
+  In the case of \(\h = 𝒪X\) saying that an open set is complemented is equivalent to saying it is closed.
+  Also, the pseudo-complement in topological spaces is the exterior operation (interior of the complement), so this says that every exterior of an open set is closed.
+  Then consider what this means for complements.
+  The complement of an exterior is the closure, so then this says ``the closure of every open set is open'', which is exactly the definition of an extremally disconnected space.
 \end{solution}
 
 \begin{note}
-  A similar approach as above can be applied here, for example in (TODO: cite DeMorganisation of a locale) they construct the greatest sublocale where \(\wlem*\) holds as the intersection of all open sublocales of the form \(p^⊥ ∨ p^{⊥⊥}\). These however do not seem to have a characterizations as nice as ``dense sublocales''.
+  A similar approach as above can be applied here, for example in (TODO: cite DeMorganisation of a locale) they construct the greatest sublocale where \(\wlem*\) holds as the intersection of all open sublocales of the form \(p^⊥ ∨ p^{⊥⊥}\).
+  These however do not seem to have a characterizations as nice as ``dense sublocales''.
 \end{note}
-
-% \begin{note}
-%   The above theorems are related to the following known facts about a locale \(ℒ\): ``the locale \(ℒ_{¬¬}\) satisfies \(\lem*\)'' and ``the locale ''
-%   The locale \(ℒ_{¬¬}\) is the meet of all dense sublocales and
-% \end{note}
+\begin{note}
+  By extension, we could also compute for example the ``\(\lpo*\)-isation'' of a locale.
+  We will see this example worked out later.
+\end{note}
 
 \subsubsection{Intermezzo: Real numbers}
 
-Let \(T\) be some topological space. Then we can synthesise it to a
-Heyting-valued set.
+Let \(T\) be some topological space (or in general a locale).
+Then we can synthesise it to a Heyting-valued set.
 
 \begin{construction}
   The set \(\set{f : 𝒞(U, T)}{U ∈ \h}\) with equality
   \[ \eq f g ≔ ⋁\set{V ≤ \e f ∧ \e g}{f\res V = g\res V} \]
-  is the topological Heyting-valued set \(\t X\).
+  is the topological Heyting-valued set \(\t T\).
 \end{construction}
 
 We now have two synthesisations of \(ℝ\). One is the discrete one \(\c ℝ\), and
@@ -230,73 +226,31 @@ object of Dedekind reals.
 
 TODO: proof
 
-\begin{example}
-  The analytic limited principle of omniscience (\(\alpo*\)) states that the apartness on
-  real numbers is decidable, or \(\for{x : ℝ}{x = 0 ∨ x \apart 0}\).
+\begin{note}
+  If the space \(T\) is discrete then the Heyting-valued sets \(\t T\) and \(\c T\) are isomorphic, which justifies the renaming of constant sheaves to discrete Heyting-valued sets.
+\end{note}
 
-  Apartness is defined as \(x \apart y ≔ x < y ∨ x > y\) and
-  \(x < y ≔ \exist{q:ℚ}{x < q < y}\), where comparisons with rationals are done
-  by containment in the cuts. These compute to
+\begin{example}\label{char:alpo}
+  The analytic limited principle of omniscience (\(\alpo*\)) states that the apartness on real numbers is decidable, or \(\for{x : ℝ}{x = 0 ∨ x \apart 0}\).
+
+  Apartness is defined as \(x \apart y ≔ x < y ∨ x > y\) and \(x < y ≔ \exist{q:ℚ}{x < q < y}\), where comparisons with rationals are done by containment in the cuts.
+  These compute to
   \[ \i{x < y} = (y-x)⁻¹(0, ∞) \]
   and
   \[ \i{x \apart y} = (y-x)⁻¹(ℝ-\{0\})\text. \]
 
-  Then \(\alpo*\) computes to ``for every continuous function \(f : U → ℝ\) we
-  have \({⊤ = \p{f^{-1}(ℝ-\{0\})}^⊥ ∨ f^{-1}(ℝ-\{0\})}\).''
+  Then \(\alpo*\) computes to ``for every continuous function \(f : U → ℝ\) we have
+  \({⊤ = \p{f^{-1}(ℝ-\{0\})}^⊥ ∨ f^{-1}(ℝ-\{0\})}\).''
   Then \(\alpo*\) is satisfied if and only if for every continuous function
   \(f : 𝒞(p, ℝ)\) \(f^{-1}(ℝ-\{0\})\) is complemented.
 
-  In the topological case, we can rephrase this to say for every continuous map
-  \(f : U → ℝ\) the zero-set \(f^{-1}\{0\}\) is open.
+  In the topological case, we can rephrase this to say for every continuous map \(f : U → ℝ\) the zero-set \(f^{-1}\{0\}\) is open.
 \end{example}
 
-A similar computation can be carried out for the Cantor space \(\t{2^ℕ}\). It
-turns out this space is just the object power-object \(2^ℕ\).
 
-\begin{exercise}
-  Let \(\h\) be a second-countable topological space (or a localic equivalent).
-  Show that \(\lpo*\) holds over \(\h\) iff \(\h\) is locally connected.
 
-  Note: This will need some topological computation, but a useful lemma is that a space is locally connected iff union of relatively clopen subsets of \(U\) is again relatively clopen in \(U\). You may take this as given (it is not part of the exercise per se, but it is what needs to be done in practice to obtain useful characterisations).
-\end{exercise}
-\begin{solution}
-  First compute what \(\lpo*\) means.
-  \begin{align*}
-    \i{\for{α:2^ℕ}{α \apart 0 ∨ α = 0}}
-    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0 ∨ α = 0}}\\
-    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0} ∨ \i{α = 0}}
-  \end{align*}
-  We may now reinterpret each \(α ∈ \t{2^ℕ}\) as a sequence of relatively clopen sets in \(\e α\), namely the sequence \(k ↦ \i{αₖ = 1}\). Thus, \(\lpo*\) holds iff for all \(p ∈ \h\) and all sequences of relatively clopen sets in \(p\) we have \(p ≤ ⋁ₙPₙ ∨ ⋀ₙ Pₙᶜ\).
-  In other words ``every sequence of relatively clopen sets has a relatively clopen union''.
 
-  Applying second-countability and the above allows us to pass from a countable sequence to an arbitrary family of relatively clopen sets, which completes the proof.
 
-  Let \(Uₙ ≔ \i{α n = 1}\). This is a clopen set with complement \(\i{α n = 0}\).
-  This is a sequence of relatively clopen sets in \(\e α\).
-  Conversely, if \(Uₙ\) is a sequence of relatively clopen sets in \(U ∈ \h\) we can form the map \(α : 𝒞(U, 2^ℕ)\) by \(t ↦ λ n : ℕ.\; t ∈ Uₙ\).
-  For this map we have \(\i{α n = 1} = Uₙ\).
-
-  Thus \(\lpo*\) holds iff for every sequence of relatively clopen sets their intersection is open (and thus clopen) or equivalently, if their union is closed.
-
-  To make the step from closure under countable unions to arbitrary unions we use second-countability of the space.
-  Let \(\{Bₙ\}\) be a countable basis for the space and \(\{Vᵢ\}_{i∈I}\) a family of relatively clopen subsets of \(U\).
-  Define
-  \[
-    Wₙ ≔
-    \begin{cases}
-      Vᵢ \quad; \text{for any \(i\) such that \(Bₙ ⊆ Vᵢ\)}\\
-      ∅  \quad; \text{if no such \(i\) exists.}
-    \end{cases}
-  \]
-  Now I claim that \(⋃_{n∈ℕ}Wₙ = ⋃_{i∈I}Vᵢ\).
-  Take \(x ∈ Vᵢ\). Then since there is some basic \(Bₙ ⊆ Vᵢ\) containing \(x\), we know that \(Wₙ = Vⱼ\) for some \(j∈I\), such that \(x ∈ Bₙ ⊆ Vⱼ\), therefore \(x ∈ Wₙ\).
-  Thus the lattice of clopen sets is complete.
-
-  To show that the space is locally connected recall that connected components are intersections of all clopen sets containing them. Then by the above the intersection of clopen sets is again clopen, therefore the connected components of the space are open, which completes the proof.
-\end{solution}
-\begin{note}
-  The last step is not trivial and even seems to require some classical reasoning. I do not know of a reference for this result, but a straight-forward proof was provided to me by James Hanson in semi-public correspondence.
-\end{note}
 
 
 

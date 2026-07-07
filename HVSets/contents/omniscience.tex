@@ -1,0 +1,254 @@
+\section{Limited principles of omniscience}
+
+A similar computation can be carried out for the Cantor space \(\t{2^ℕ}\).
+It turns out this space is just the power-object \(2^ℕ\).
+\begin{note}
+  If we inspect closely what the object \(2\) is, we notice it's terms are precisely continuous maps \(𝒞(p, 2)\).
+  Thus, they are identified by relatively clopen sublocales in \(p\).
+
+  If we now take sequences of elements of \(2\) internally, i.~e.~elements of \(𝒞(p, 2^ℕ)\), we can rewrite this externally to \(ℕ → 𝒞(p, 2)\), i.~e.~ sequences of relatively clopen sublocales in \(p\).
+\end{note}
+
+\begin{exercise}
+  Let \(\h\) be a second-countable topological space (or a localic equivalent).
+  Show that \(\lpo*\) holds over \(\h\) iff \(\h\) is locally connected.
+
+  Note: This will need some topological computation, but a useful lemma is that a space is locally connected iff union of relatively clopen subsets of \(U\) is again relatively clopen in \(U\).
+  You may take this as given (it is not part of the exercise per se, but it is what needs to be done in practice to obtain useful characterisations).
+\end{exercise}
+\begin{solution}
+  First compute what \(\lpo*\) means.
+  \begin{align*}
+    \i{\for{α:2^ℕ}{α \apart 0 ∨ α = 0}}
+    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0 ∨ α = 0}}\\
+    &= ⋀_{α∈2^ℕ_{\h}} {\e α ⇒ \i{α \apart 0} ∨ \i{α = 0}}
+  \end{align*}
+  We may now reinterpret each \(α ∈ \t{2^ℕ}\) as a sequence of relatively clopen sets in \(\e α\), namely the sequence \(k ↦ \i{αₖ = 1}\).
+  Thus, \(\lpo*\) holds iff for all \(p ∈ \h\) and all sequences of relatively clopen sets in \(p\) we have \(p ≤ ⋁ₙPₙ ∨ ⋀ₙ Pₙᶜ\).
+  In other words ``every sequence of relatively clopen sets has a relatively clopen union''.
+
+  Applying second-countability and the above allows us to pass from a countable sequence to an arbitrary family of relatively clopen sets, which completes the proof.
+
+  Let \(Uₙ ≔ \i{α n = 1}\), which is a clopen set with complement \(\i{α n = 0}\).
+  % Then the sets \(Uₙ\) form a sequence of relatively clopen sets in \(\e α\).
+  % Conversely, if \(Uₙ\) is a sequence of relatively clopen sets in \(U ∈ \h\) we can form the map \(α : 𝒞(U, 2^ℕ)\) by \(t ↦ λ n : ℕ.\; t ∈ Uₙ\).
+  % For this map we have \(\i{α n = 1} = Uₙ\).
+
+  Thus \(\lpo*\) holds iff for every sequence of relatively clopen sets their intersection is open (and thus clopen) or equivalently, if their union is closed.
+
+  To make the step from closure under countable unions to arbitrary unions we use second-countability of the space.
+  Let \(\{Bₙ\}\) be a countable basis for the space and \(\{Vᵢ\}_{i∈I}\) a family of relatively clopen subsets of \(U\).
+  Define
+  \[
+    Wₙ ≔
+    \begin{cases}
+      Vᵢ \quad; \text{for any \(i\) such that \(Bₙ ⊆ Vᵢ\)}\\
+      ∅  \quad; \text{if no such \(i\) exists.}
+    \end{cases}
+  \]
+  Now I claim that \(⋃_{n∈ℕ}Wₙ = ⋃_{i∈I}Vᵢ\).
+  Take \(x ∈ Vᵢ\). Then since there is some basic \(Bₙ ⊆ Vᵢ\) containing \(x\), we know that \(Wₙ = Vⱼ\) for some \(j∈I\), such that \(x ∈ Bₙ ⊆ Vⱼ\), therefore \(x ∈ Wₙ\).
+  Thus the lattice of clopen sets is complete.
+
+  To show that the space is locally connected recall that connected components are intersections of all clopen sets containing them. Then by the above the intersection of clopen sets is again clopen, therefore the connected components of the space are open, which completes the proof.
+\end{solution}
+\begin{note}
+  The last step is not trivial and even seems to require some classical reasoning. I do not know of a reference for this result, but a straight-forward proof was provided to me by James Hanson in semi-public correspondence.
+\end{note}
+\begin{note}
+  As promised we computed the ``\(\lpo*\)-isation'' of the locale \(\h\).
+  It is precisely the intersection of \(p ⇒ \i{α \apart 0} ∨ \i{α = 0}\) over all \(p ∈ \h\) and \(α ∈ 𝒞(p, 2^ℕ)\).
+\end{note}
+
+These two examples give us a framework for working with limited principles of omniscience more rigorously.
+
+Let \(ℛ\) denote any object of real numbers. For our purposes these may be \(\c ℝ\), \(\Rc\), \(\Re\), \(\Rd\), and \(\Rm\), the fields of discrete, Cauchy, Escardó-Simpson, Dedekind, and MacNeille reals.
+
+\begin{definition}
+  Define the following principles:
+  \begin{itemize}
+  \item \(\lpo* ≔ \for{α : 2^ℕ}{α = 0 ∨ α \apart 0}\)
+  \item \(\wlpo* ≔ \for{α : 2^ℕ}{α = 0 ∨ α ≠ 0}\)
+  \item \(\llpo* ≔ \for{α, β : 2^ℕ}{¬(α \apart 0 ∧ β \apart 0) ⇒ α = 0 ∨ β = 0}\)
+  \item \(\mp* ≔ \for{α : 2^ℕ}{α ≠ 0 ⇒ α \apart 0}\)
+  \item \(\ks* ≔ \for{p : Ω}{\exist{α : 2^ℕ}{p ⇔ α \apart 0}}\)
+  \item \(\alpo*_ℛ ≔ \for{x : ℛ}{x = 0 ∨ x \apart 0}\)
+  \item \(\awlpo*_ℛ ≔ \for{x : ℛ}{x = 0 ∨ x ≠ 0}\)
+  \item \(\allpo*_ℛ ≔ \for{x : ℛ}{x ≤ 0 ∨ x ≥ 0}\)
+  \item \(\amp*_ℛ ≔ \for{x : ℛ}{x ≠ 0 ⇒ x \apart 0}\)
+  \item \(\aks*_ℛ ≔ \for{p : Ω}{\exist{x : ℛ}{p ⇔ x \apart 0}}\)
+  \end{itemize}
+  We name these (in order) the ``Limited Principle of Omniscience'', ``Weak \(\lpo*\)'', ``Lesser \(\lpo*\)'', ``Markov's Principle'', ``Kripke's Schema'', and we read the ``A'' as ``Analytic''.
+\end{definition}
+
+\begin{note}
+  The above may be obtained using a more general schemata.
+  Define for \(Σ ⊆ Ω\)
+  \begin{itemize}
+  \item \(\lem*_Σ ≔ \for{p ∈ Σ}{p ∨ ¬p}\)
+  \item \(\wlem*_Σ ≔ \for{p ∈ Σ}{¬p ∨ ¬¬p}\)
+  \item \(\dm*_Σ ≔ \for{p, q ∈ Σ}{¬(p ∧ q) ⇒ ¬p ∨ ¬q}\)
+  \item \(\dne*_Σ ≔ \for{p ∈ Σ}{¬¬p ⇒ p}\)
+  \item \(\gks*_Σ ≔ Σ = Ω\)
+  \end{itemize}
+  Then \(\lpo* = \lem*_{\sd}\), \(\wlpo* = \wlem*_{\sd}\), \(\llpo* = \dm*_{\sd}\), \(\mp* = \dne*_{\sd}\), \(\ks* = \gks*_{\sd}\), and the analytic versions are obtained by replacing \(\sd\) by \(Σ_ℛ ≔ \set{p ∈ Ω}{\exist{x ∈ ℛ}{x \apart 0 ⇔ p}}\) (or equivalently taking \(x > 0\) instead of \(x \apart 0\)).
+\end{note}
+\begin{internal}
+  \(Σ_ℛ\) is the subobject \(\set{x \apart 0}{x : ℛ} ⊆ Ω\).
+\end{internal}
+
+It is known that the analytic principles for Cauchy reals correspond to the principles about binary sequences.
+We can succinctly prove this by observing the following.
+\begin{proposition}
+  \(\sd = Σ_{\Rc}\).
+\end{proposition}
+\begin{proof}
+  TODO: Cite Gro-Tsen MO/MSE post
+\end{proof}
+
+We can then wonder, if there also exist characterisations for the other objects of real numbers.
+We can say the following.
+\begin{proposition}
+  We have \(Σ_{\c ℝ} = Δ\), \(Σ_{\Rm} = Ω\), and \(Σ_{\Re} = Q\), where \(Δ\) is the lattice of decidable propositions and \(Q\) the lattice of quasi-decidable propositions.
+\end{proposition}
+\begin{proof}
+  For the first statement first observe that the decidable propositions internally are \(\set{p ∈ Ω}{⊤ ⇔ p ∨ ⊥ ⇔ p}\).
+  Then, since elements of \(\c ℝ\) are just external real values we have \(x \apart 0 ∈ \{⊤, ⊥\}\), so the set \(Σ_{\c ℝ}\) is internally also \(\set{p ∈ Ω}{⊤ ⇔ p ∨ ⊥ ⇔ p}\).
+
+  For the second, given a proposition \(p ∈ Ω\), we construct the MacNeille real \(s\) as the supremum of the set \(\set{x ∈ \Rm}{x ≤ 0 ∨ p ∧ x ≤ 1}\).
+  Then \(s > 0 ⇔ p\) which establishes the desired equality.
+
+  For the final equality
+  TODO: figure out where Auke Booij did this and cite it.
+\end{proof}
+
+However, there is no such characterisation known for the Dedekind reals. Thus, we shall reserve the ``analytic'' qualifier for the Dedekind case, i.~e.~\(ℛ=\Rd\).
+
+TODO: Quasi-decidable propositions
+
+
+\subsection{Analytic principles}
+
+We have already established the characterisation of \(\alpo*\) in Exercise~\ref{char:alpo}.
+The rest of the characterisations are relatively straightforward.
+The definitions and terminology are due to~\cite{GJ60}.
+
+\begin{definition}
+  An open sublocale of \(X\) is a \emph{coset} when it is of the form \(f⁻¹\p{0,∞}\) for some real-valued continuous function \(f : 𝒞(\h, ℝ)\). Denote it by \(U_f\) in this section.
+\end{definition}
+\begin{definition}
+  Elements of \(\Sd\) are called \emph{local cosets}.
+\end{definition}
+
+\begin{definition}
+  A locale \(\h\) is \emph{basically disconnected} when the closure of every coset is open.
+\end{definition}
+
+\begin{proposition}
+  \(\awlpo*\) holds over \(\h\) iff every open sublocale of \(\h\) is basically disconnected.
+\end{proposition}
+
+\begin{definition}
+  A locale \(\h\) is an \emph{almost P-locale} when every coset is regular.
+\end{definition}
+
+\begin{proposition}
+  \(\amp*\) holds over \(\h\) iff every open sublocale of \(\h\) is an almost P-locale.
+\end{proposition}
+
+\begin{theorem}
+  Constructively, \(\awlpo* ∧ \amp* ⇔ \alpo*\).
+\end{theorem}
+\begin{corollary}
+  A locale is a basically disconnected almost P-locale when every local coset is closed.
+\end{corollary}
+
+\begin{definition}
+  A locale is an \emph{F-locale} when for every \(f : 𝒞(X, ℝ)\) the cosets \(U_f\) and \(U_{-f}\) are completely separated.
+\end{definition}
+\begin{note}
+  The only place this definition appears is in~\ref{GJ60}, where we are given 10 equivalent conditions.
+  I chose this one for the definition, as it makes the characterisation straightforward.
+\end{note}
+
+\begin{proposition}
+  \(\allpo*\) holds over \(\h\) when every open sublocale of \(\h\) is an F-locale.
+\end{proposition}
+
+
+\subsection{Real number identification principles}
+
+% Recall the Borel hierarchy.
+% \begin{definition}
+%   A sublocale of \(\h\) is
+%   \begin{itemize}
+%   \item \(\sd\) when it is open.
+%   \item \(Π⁰_α\) when it's complement is in \(Σ⁰_α\).
+%   \item \(Σ⁰_α\) for \(α > 1\) when it is the union of a countable sequence of sets \(\p{Aᵢ ∈ Π⁰_{αᵢ}}\) with \(αᵢ<α\).
+%   \item \(Δ⁰_α\) when it is \(Σ⁰_α\) and \(Π⁰_α\).
+%   \end{itemize}
+% \end{definition}
+
+
+\begin{definition}
+  Define \(Δ₁ ≔ Δ\) and \(Δ_α\) for \(α > 1\) be the countable union of elements in \(Δ_{<α}\).
+\end{definition}
+\begin{definition}
+  A sublocale is \emph{semi-clopen} when it is a countable union of clopen sublocales and \emph{quasi-clopen} when it is in the following QIT \(𝒬\) as a subtype of sublocales:
+  \begin{itemize}
+  \item \(\mathrm{dec} : Δ → 𝒬\)
+  \item \(\mathrm{⋃} : (ℕ → 𝒬) → 𝒬\)
+  \item \(\mathrm{eq} : \p{p q : 𝒬} → \p{⋁^*p ≡ ⋁^*q} → p ≡ q\)
+  \end{itemize}
+  i.~e.~clopen sublocales and countable joins of quasi-clopen sublocales are quasi-open.
+\end{definition}
+
+\begin{proposition}
+  \(\c ℝ ≅ \Rc\) holds over \(\h\) iff when every countable family of relatively clopen sublocales has clopen union (and equivalently intersection).
+\end{proposition}
+% \begin{note}
+%   We can rephrase this as saying \(\c ℝ ≅ \Rc\) over \(h\) iff \(Δ⁰₂ = Δ⁰₁\) for \(\h\).
+% \end{note}
+\begin{proof}
+  The statement \(\c ℝ ≅ \Rc\) is equivalent to saying \(Δ = \sd\).
+
+  Suppose \(Δ = \sd\) and let \(\p{Pₙ}\) be a countable family of relatively clopen sublocales.
+  Then we can identify it internally as a map \(P : ℕ → Δ\)
+  Its union is the proposition \(\exist{n:ℕ}{Pₙ}\) and it is by definition in \(\sd\).
+  But by assumption \(\sd = Δ\), so \(\exist{n:ℕ}{Pₙ}\) is decidable and the union is clopen.
+
+  Conversely, take propositions \(P : ℕ → Δ\) and consider \(\exist{n:ℕ}{Pₙ}\).
+  Then as above the \(Pₙ\) are relatively clopen sublocales in \(\e P\), so they have clopen union, and \(\exist{n:ℕ}{Pₙ}\) is decidable.
+\end{proof}
+
+
+\begin{proposition}
+  \(\Rd ≅ \Rm\) is equivalent to \(\wlem*\).
+\end{proposition}
+\begin{proof}
+  Let \(x : \Rm\) and \(p < q : ℚ\).
+  If \(\wlem*\) holds then we have \(¬(0<x) ∨ ¬¬(0<x)\), which implies \(x<2 ∨ ¬(x<1)\), so \(x < 2 ∨ 1 < x\).
+
+  Conversely let \(p : \prop\) and define \(s ≔ ⋁\set{x : \Rm}{x ≤ 0 ∨ p∧(x≤1)} ≕ ⋁S\).
+  This join exists as the set is inhabited by \(0\) and is bounded above by \(1\).
+  Then by assumption \(s\) is located, so \(0 < s ∨ s < 1\).
+  On \(p\) the supremum \(s\) is \(1\), so if \(s < 1\) we have \(¬p\).
+  On \(¬p\) the supremum \(s\) is \(0\), so if \(0 < s\) we have \(¬¬p\).
+  Thus, \(¬p ∨ ¬¬p\).
+\end{proof}
+This then gives an interesting corollary when analysed.
+\begin{corollary}
+  A space \(X\) is extremally disconnected iff the lattice \(𝒞(X, ℝ)\) is conditionally complete.
+\end{corollary}
+This appears to be a novel result, in the sense that it is a refinement of a known result in literature, where the equivalence above is obtained only for completely regular spaces~\cite{GJ60}.
+It also produces a different proof of the statement in the literature (namely, we take the supremum of a different family).
+
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

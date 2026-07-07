@@ -1,0 +1,189 @@
+\section{Real number fields}
+
+\subsection{Cauchy reals}
+
+There are several ways of defining Cauchy real numbers, some of which are non-equivalent.
+Here we adopt the terminology of calling ``Cantor reals'' what is often referred to as ``classical Cauchy reals'' and plainly ``Cauchy reals'' for what is usually called ``modulated Cauchy reals'' with fixed modulus \(n ↦ n\).
+\begin{definition}[Cantor real numbers]
+  A sequence of \(qₙ\) rational numbers is a \emph{Cantor sequence} when
+  \[ \for{n:ℕ}{\exist{N:ℕ}{\for{k,l≥N}{\abs{qₖ - qₗ} < 2⁻ⁿ}}}\text. \]
+
+  The set of Cantor sequences modulo relation
+  \[ x\sim y ≔ \for{n:N}{\exists{N:ℕ}{\for{k,l≥N}{\abs{xₖ-yₗ}<2⁻ⁿ}}} \]
+  is the set of \emph{Cantor reals}.
+\end{definition}
+
+\begin{definition}[Cauchy real numbers]
+  A sequence of \(qₙ\) rational numbers is a \emph{Cauchy sequence} when
+  \[\for{n:ℕ}{\for{k,l≥n}{\abs{qₖ - qₗ} < 2⁻ⁿ}}\text. \]
+
+  The set of Cauchy sequences modulo relation
+  \[ x\sim y ≔ \for{n:N}{\for{k,l≥n}{\abs{xₖ-yₗ}<2⁻ⁿ}} \]
+  is the set of \emph{Cauchy reals}.
+\end{definition}
+\begin{note}
+  Here the usual modulated Cauchy reals are equivalent to our Cauchy reals, despite fixing the modulus of convergence.
+  You can read more at~\cite{nlab:cauchy}.
+\end{note}
+
+\begin{proposition}
+  Every Cauchy real is a Cantor real, but the converse does not hold in general.
+\end{proposition}
+
+\subsection{Dedekind reals}
+
+\begin{definition}[Dedekind construction]\label{def:Rd}
+  A pair \(\p{L, U} ∈ 𝒫(ℚ)²\) is a \emph{Dedekind cut} when
+  \begin{enumerate}
+  \item \(L\) is inhabited, lower, and upwards open
+  \item \(U\) is inhabited, upper, and downwards open
+  \item \(p ∈ L ∧ q ∈ U ⇒ p < q\) for any \(p\), \(q : ℚ\)
+  \item \(p < q ⇒ p ∈ L ∨ q ∈ U\) for any \(p\), \(q : ℚ\)
+  \end{enumerate}
+
+  The set of \emph{Dedkind reals} is the set of Dedekind cuts.
+\end{definition}
+
+\begin{proposition}
+  Every Cantor real is a Dedekind real.
+\end{proposition}
+
+\subsection{Escardó-Simpson reals}
+
+\begin{definition}
+  Let \(M : (ℕ → \Rd) → \Rd\) be the map \(M(x) ≔ Σₙxₙ2⁻ⁿ⁺¹\) (the indexing starts at \(0\)).
+  The Escardó-Simpson reals is the subset
+  \[ ⋂\set{X ⊆ \Rd}{ℚ ⊆ X ∧\text{\(X\) is closed under \(M\)}} \text. \]
+\end{definition}
+
+\begin{proposition}
+  Every Cantor real is an Escardó-Simpson real.
+\end{proposition}
+
+\subsection{MacNeille reals}
+
+\begin{definition}[MacNeille construction]\label{def:Rm}
+  A pair \(\p{L, U} ∈ 𝒫(ℚ)²\) is a \emph{Dedekind-MacNeille cut} when
+  \begin{enumerate}
+  \item \(L\) is inhabited, lower, and upwards open
+  \item \(U\) is inhabited, upper, and downwards open
+  \item[a.] \label{real-m:L} \(p ∈ L ⇔ \exist{q>p}{q ∉ U}\)
+  \item[b.] \label{real-m:U} \(q ∈ U ⇔ \exist{p<q}{p ∉ L}\)
+  \end{enumerate}
+
+  The set of \emph{MacNeille reals} is the set of Dedekind-MacNeille cuts.
+\end{definition}
+
+\begin{proposition}
+  Every Dedekind real is a MacNeille real.
+\end{proposition}
+
+\subsection{Orders}
+
+We can define the various order relations on reals by defining an order for the MacNeille reals.
+Then the orderings of all other order relations come from the restriction of this one.
+\begin{definition}
+  For a rational \(q : ℚ\) and \(x : \Rm\) define \(x < q ≔ q ∈ Uₓ\) and \(q < x ≔ q ∈ Lₓ\).
+  Then for \(x, y : \Rm\) define \(x < y ≔ \exist{q:ℚ}{x < q < y}\) and \(x ≤ y ≔ L_x ⊆ L_y\).
+\end{definition}
+\begin{lemma}
+  We have for all \(x, y : \Rm\) that \(x ≤ y ⇔ U_x ⊇ U_y\).
+\end{lemma}
+\begin{proof}
+  Suppose \(x ≤ y\). Then for \(q ∈ U_y\) we have \(\exist{p<q}{p ∉ L_y}\) by~\ref{real-m:U}.
+  By assumption we have \(p ∉ L_x\), so \(q ∈ U_x\).
+  The converse argument is symmetric.
+\end{proof}
+\begin{note}
+  We can rephrase \(x ≤ y\) as \(\for{q:ℚ}{q<x ⇒ q<y}\).
+\end{note}
+
+Of special note is the following characterisation of the ordering on the Cauchy reals.
+\begin{lemma}
+  For \(x, y : \Rc\) we have \(x < y ⇔ \exist{n:ℕ}{xₙ + 2⁻ⁿ < yₙ - 2⁻ⁿ}\) and \(x ≤ y ⇔ ¬(y < x) ⇔ \for{n:ℕ}{yₙ - 2⁻ⁿ ≤ xₙ + 2⁻ⁿ}\).
+\end{lemma}
+\begin{proof}
+  Let \(x < y\), so \(x < q < y\).
+  Then for infinitely many \(n, m\) we must have \(xₙ + 2⁻ⁿ < q < yₘ - 2⁻ᵐ\).
+  Thus there is a single \(n\) such that \(xₙ + 2⁻ⁿ < q < yₙ - 2⁻ⁿ\).
+
+  In the converse direction suppose \(xₙ + 2⁻ⁿ < yₙ - 2⁻ⁿ\).
+  Then we may find some \(q:ℚ\) strictly between these two rational numbers, so \(xₙ + 2⁻ⁿ < q < yₙ - 2⁻ⁿ\).
+  Thus \(x < q < y\) as desired.
+\end{proof}
+
+\begin{proposition}
+  For \emph{Dedekind} reals \(x, y : \Rd\) we have \(¬(x < y) ⇔ y ≤ x\).
+\end{proposition}
+\begin{proof}
+  TODO: Zakaj samo dedekind?
+  Suppose we have \(q ∈ L_x∩U_y\) and \(U_x⊇U_y\).
+  Then we have \(q ∈ Uₓ∩Lₓ\) which is a contradiction.
+
+  Conversely, suppose \(¬(x < y)\) and let \(q ∈ Uₓ\).
+  By assumption \(¬\exist{q:ℚ}{x<q<y}\), so \(\for{q:ℚ}{¬(x<q<y)}\).
+  Using this at \(x<s<q\) (such an \(s\) exists by openness) we deduce \(¬(s<y)\), so \(s ∉ L_y\).
+  Now by~\ref{real-m:U} we have \(q ∈ U_y\), completing the proof.
+\end{proof}
+
+The above proposition does not hold for MacNeille reals, but we do have
+\begin{lemma}
+  For \(x,y:\Rm\) we have \(x ≤ y ⇒ ¬(y<x)\), or \(¬(x≤y ∧ y<x)\).
+\end{lemma}
+\begin{lemma}
+  For MacNeille reals we have \(x < y ∨ x = y ⇒ x ≤ y\).
+\end{lemma}
+
+
+\subsection{Apartness}
+
+\begin{definition}
+  A relation \(\apart : 𝒫(X×X)\) is an \emph{apartness relation} on \(X\) when it is
+  \begin{itemize}
+  \item irreflexive: \(\for{x:X}{¬(x \apart x)}\)
+  \item symmetric: \(\for{x,y:X}{x \apart y ⇒ y \apart x}\)
+  \item comparative: \(\for{x,y,z:X}{x \apart z ⇒ x \apart y ∨ y \apart z}\)
+  \end{itemize}
+
+  An apartness relation is \emph{tight} when \(\for{x,y:X}{¬(x \apart y) ⇒ x = y}\).
+\end{definition}
+
+\begin{definition}
+  For \(x,y:\Rm\) define \(x \apart y ≔ x < y ∨ y < x\).
+\end{definition}
+
+\begin{lemma}
+  The relation \(\apart\) is a tight apartness relation on \(\Rd\).
+\end{lemma}
+\begin{proof}
+  Since the relation is obviously irreflexive and symmetric, we only show it's comparative.
+  Let \(x \apart z\) so \(x < z ∨ z < x\).
+  By symmetry we can consider only \(x < z\).
+  We aim to show \(x < y ∨ y < z\).
+
+  Suppose \(¬(x \apart y)\).
+  Then \(¬(x < y) ∧ ¬(y < x)\) so \(x ≤ y ∧ y ≤ x\).
+  By anti-symmetry we get \(x = y\).
+\end{proof}
+
+But \(\apart\) is in general not comparative on the whole of the MacNeille reals.
+\begin{theorem}
+  In the sheaf topos over \(ℝ\) the relation \(\apart\) on \(\Rm\) is not comparative.
+\end{theorem}
+\begin{proof}
+  Consider \(y ≔ ⋁\set{x:\Rm}{x ≤ 0 ∨ (x ≤ 1 ∧ U)}\), where \(U\) is the generic proposition \(\p{0, ∞}\).
+  Now let \(x = 0\) and \(z = 1\).
+  Then comparativeness would require \(0 \apart y (≡ U)\) and \(y \apart 1 (≡ ¬U)\) to cover, however \(U ∪ ¬U = ¬\{0\} ≠ ⊤\).
+\end{proof}
+This proof actually extends to show that there can be no apartness relation on \(\Rm\).
+Suppose \(\apart\) is some apartness relation on \(\Rm\).
+Then as constructed above \(0 \apart y\) must be at least \(U\), since restricting to \(U\) we have \(y = 1\).
+Further, on \(¬U\) we have \(y = 0\), so \(0 \apart y\) is at most \(\int\cl U\).
+But because \(U\) is regular \(0 \apart y\) is just \(U\).
+Similarly we deduce that \(y \apart 1\) is \(¬U\), which concludes the proof.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

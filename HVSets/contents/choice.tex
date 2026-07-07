@@ -1,0 +1,97 @@
+\section{Choice principles}
+
+Assuming Zorn's lemma we of course have \(\AC ⇔ \lem*\), but we may attempt to classify restrictions of choice.
+
+\begin{definition}
+  For \(Σ ⊆ \prop\) and \(A\) and \(B\) types \(\AC_Σ(A, B)\) is the assertion that every total \(Σ\)-relation between \(A\) and \(B\) has a functional subrelation,~i.~e.
+  \[ \for{R : A×B → Σ}{R\text{ total} ⇒ \exist{f : A → B}{\for{x:A}{R(a,f(a))}}}\text. \]
+  I will denote \(\AC_Σ(A) ≔ \for{B : \ty}{\AC_Σ(A,B)}\), and \(\AC_Σ ≔ \for{A:\ty}{\AC_Σ(A)}\).
+  I also omit the subscript when \(Σ = \prop\).
+\end{definition}
+\begin{definition}
+
+\end{definition}
+
+Let us first limit ourselves to locally connected spaces.
+Recall the following key theorem about characterising locally connected spaces.
+% \begin{theorem}
+%   A space is locally connected iff in the topos we have \({\c B}^{\c A} ≅ \c{B^A}\).
+% \end{theorem}
+% \begin{proposition}
+%   A space is locally connected iff every family of partitions has a joint refinement.
+% \end{proposition}
+% \begin{proof}
+%   For the backwards direction take \(f : {\c B}^{\c A}\) in the topos, hoping to show it is locally constant.
+%   Define families \(Cₐ ≔ \lam{y : B}{f(a,y)}\).
+%   These each partition \(X\).
+%   Then they have a joint refinement \(C\), such that \(\for{V ∈ C}{\for{a ∈ A}{\exist{b ∈ B}{V ⊆ Cₐ(b)}}}\).
+%   The relation \(R(a, b) ≔ V ⊆ Cₐ(b)\) is thus total for every \(V ∈ C\) and is equal to \(f\) on \(V\), so \(f\) is locally constant. TODO: also single-valued.
+
+%   Conversely let \(Cₐ\) be an \(A\)-indexed family of \(B\)-indexed partitions.
+%   Then internally it is a total relation \(R : \c A×\c B → \prop\).
+%   Furthermore, it is single-valued, as \(Cₐ\) is a partition.
+%   Then it is a term of \({\c B}^{\c A} ≅ \c{B^A}\), so there is a cover \(C\) on which \(R\) is equal to a map \(f : A → B\).
+%   This means that for every \(a ∈ \carr A\) and \(V ∈ C\) we have \(V ⊆ Cₐ(f_V(a))\), so \(C\) is a refinement for each \(Cₐ\).
+% \end{proof}
+TODO: Here we should have something other than \(𝒫\), \(𝒫_{tot}\) maybe
+\begin{theorem}
+  A space is locally connected iff in the topos the operation
+  \[ φ : \c{\mathrm{Rel_{tot}}(A,B)} ↝ 𝒫\p{\c A×\c B} \]
+  deifned by
+  \[ S ↦ \lam{x,y:\c A×\c B}{⋁\set{⊤}{S(x,y)}} \]
+  is an isomorphism.
+\end{theorem}
+\begin{proposition}
+  A space is locally connected iff every family of covers has a joint refinement.
+\end{proposition}
+\begin{proof}
+  Let \(Cₐ\) be an \(A\)-indexed family of \(B\)-indexed covers.
+  Then internally it is a total relation \(R : \c A×\c B → \prop\).
+  Then there is a cover \(C\) and on each \(V ∈ C\) we have a corresponding total relation \(S_V ⊆ A×B\) such that \(R(a,b) = ⋁\set{⊤}{S_V(a,b)}\).
+  This means that for every \(a ∈ A\) and \(V ∈ C\) we have \(V ≤ R(a,b)\) iff
+  \(S_V(a, b)\).
+  Now since \(S\) is total we have for each \(a\) and \(V\) a \(b ∈ B\) such that \(V ≤ R(a,b) = Cₐ(b)\), and so \(C\) is a joint refinement for the \(Cₐ\).
+  For the backwards direction take \(R : 𝒫\p{\c A×\c B}\) in the topos, hoping to show it is locally constant.
+
+  Conversely, take a \(R : \c A×\c B → \prop\).
+  Define families \(Cₐ ≔ \lam{y : B}{R(a,y)}\).
+  These each cover \(\e R\).
+  Then they have a joint refinement \(C\), such that \(\for{V ∈ C}{\for{a ∈ A}{\exist{b ∈ B}{V ≤ Cₐ(b)}}}\).
+  The relation \(S_V(a, b) ≔ V ≤ Cₐ(b)\) is thus total for every \(V ∈ C\) and \(⋁\set{⊤}{S_V(a,b)} = R(a,b)\) on \(V\), so \(R\) is locally constant.
+\end{proof}
+The single-valued relations internally correspond to functional relations externally, and the corresponding covers are partitions, so we have as a corollary
+\begin{corollary}
+  Over locally connected locales we have
+  \begin{enumerate}
+  \item \({\c B}^{\c A} ≅ \c{B^A}\) and
+  \item Every family of partitions has a common refinement.
+  \end{enumerate}
+\end{corollary}
+
+Now we can state the following
+\begin{theorem}
+  A locally connected locale satisfies \(\AC(\c A, \c B)\) iff \(\AC(A, B)\) holds in the meta-theory.
+\end{theorem}
+\begin{proof}
+  Suppose we have \(\AC(\c A, \c B)\) and let \(S : A×B → Ω\) be a total relation.
+  Then we can build \(R(x,y) ≔ ⊤ ≤ S(x,y)\) as a relation internally.
+  Because \(S\) is total so is \(R\).
+  Then by choice we have \(f : \c A → \c B\) internally.
+  By local connectedness we have \(f' : \c{B^A}\), so we can extract a \(g : A → B\), such that it is equal to \(f'\) on some connected open.
+  Then for \(g\) we know that \(\for{x : A}{S(x, g(x))}\), therefore \(R(x, g(x))\) holds for all \(x ∈ \carr A\).
+
+  Conversely let \(\AC(A, B)\) hold in the meta-theory and let \(R : \c A×\c B → \prop\) be a relation internally.
+  Then by assumption it is locally a total relation \(S : A×B → Ω\).
+  Using choice we get a map \(f : A → B\) such that \(S(a,f(a))\) holds for all \(a ∈ A\).
+  But then also \(R(a,f(a)) = ⊤\) for all \(a ∈ A\), so defining \(\hat f(a,b) ≔ \eq {f(a)} b\) gives us a choice function for \(R\).
+\end{proof}
+
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

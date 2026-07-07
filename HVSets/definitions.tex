@@ -10,12 +10,16 @@
 \RequirePackage{unicode-math}
 \RequirePackage{polyglossia}
 \RequirePackage{enumerate}
+\RequirePackage{hyperref}
 \RequirePackage{tikz}
 \usetikzlibrary{babel}
 \usetikzlibrary{cd,positioning}
 \usetikzlibrary{angles,quotes}
 
+\usepackage[margin=3cm]{geometry}
+
 \usepackage[normalem]{ulem}
+\def\oline{\overline}
 
 \DeclareMathOperator{\sh}{Sh}
 \DeclareMathOperator{\id}{id}
@@ -23,6 +27,7 @@
 \DeclareMathOperator{\fam}{Fam}
 \DeclareMathOperator{\ty}{Ty}
 \DeclareMathOperator{\tmop}{Tm}
+\DeclareMathOperator{\prop}{Prop}
 \newcommand{\ctx}{\mathsf{Ctx}}
 \newcommand{\tm}[2]{\tmop {#1} \: {#2}}
 \newcommand{\ext}[2]{#1.#2}
@@ -81,6 +86,9 @@
 \defquantifier{sigma}{\Sigma}
 \defquantifier{pi}{\Pi}
 \def\tilde{\widetilde}
+\undef\int
+\DeclareMathOperator{\int}{Int}
+\DeclareMathOperator{\cl}{Cl}
 }
 \newcommand{\newdef}[1]{
   \theoremstyle{definition}
@@ -148,8 +156,12 @@
 \newcommand{\principle}[1]{\textnormal{\sffamily #1}}
 \defprinciple{lem}
 \defprinciple{wlem}
+\defprinciple{dm}
+\defprinciple{dne}
+\defprinciple{gks}
 \defprinciple{lpo}
 \defprinciple{wlpo}
+\defprinciple{llpo}
 \AtBeginDocument{
 \undef\mp
 \defprinciple{mp}
@@ -157,7 +169,7 @@
 \defprinciple{ks}
 \defprinciple{alpo}
 \defprinciple{awlpo}
-%\defprinciple{allpo}
+\defprinciple{allpo}
 \defprinciple{amp}
 \defprinciple{aks}
 \newcommand{\AC}{\principle{AC}}
@@ -169,6 +181,12 @@
 \def\Rd{ℝ_{\text{D}}}
 \def\Rc{ℝ_{\text{C}}}
 \def\Ncof{ℕ^{\text{cof}}}
+\def\Ssd{Σ₀¹}
+\def\Sm{Σ_{\Rm}}
+\def\Sd{Σ_{\Rd}}
+\def\Se{Σ_{\Re}}
+\def\Sc{Σ_{\Rc}}
+\def\S
 
 \usepackage{tabularx}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
@@ -185,6 +203,7 @@
   \def\c{\uline}
   \def\h{ℋ}
   \def\t#1{{#1}_{\h}}
+  \def\Re{ℝ_{\text{E}}}
 }
 
 
