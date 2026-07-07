@@ -5,7 +5,7 @@
 \def\normalsize{}
 \RequirePackage{fontspec}
 \RequirePackage{stmaryrd}
-% \RequirePackage{lualatex-math}
+\RequirePackage{lualatex-math}
 \RequirePackage{mathtools}
 \RequirePackage{unicode-math}
 \RequirePackage{polyglossia}
@@ -16,10 +16,24 @@
 \usetikzlibrary{cd,positioning}
 \usetikzlibrary{angles,quotes}
 
+\setmainfont{Latin Modern Roman}
+% \setmainfont{TeX Gyre Pagella}
+% \setmathfont{TeX Gyre Pagella Math}
+\setmathfont{Latin Modern Math}
+\setmathfont{Asana Math}[range={scr}]
+\setmathfont{STIX Two Math-Regular}[range={bb,"1D538-"1D56B,"0211D}]
+\setmathfont{STIX Two Math-Regular}[range={"2102,"210D,"2115,"2119,"211A,"211D,"2124}]
+% \setmathfont{TeX Gyre Pagella Math}[range={8730}] %sqrt
+% \setmathfont{Asana Math}[range={"007B,"007D}]  % {}
+\setmathfont{Asana Math}[range={8709,\setminus,"2216,"29F5,"219D}]  % U+2205, emptyset
+\setmathfont{Asana Math}[range={10631, 10632}]  % U+2987, U+2988, bb parenthesis
+
 \usepackage[margin=3cm]{geometry}
 
 \usepackage[normalem]{ulem}
-\def\oline{\overline}
+\renewcommand{\ULdepth}{1.8pt}
+\newcommand{\ul}[1]{\uline{#1}}
+\def\ol{\overline}
 
 \DeclareMathOperator{\sh}{Sh}
 \DeclareMathOperator{\id}{id}
